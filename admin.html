@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zona de Maestros — Mati Evolución</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0d062e;
+      font-family: 'Nunito', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bg {
+      position: fixed; inset: 0;
+      background-image: url('assets/Fondo.png');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0;
+      background: rgba(5, 0, 40, 0.55);
+      z-index: 1;
+    }
+
+    /* Astronauta decorativo */
+    .astronauta {
+      position: fixed; z-index: 3;
+      width: 200px; bottom: 0; right: 5%;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
+      animation: floatY 6s ease-in-out infinite;
+    }
+
+    /* Alien decorativo */
+    .alien-deco {
+      position: fixed; z-index: 3;
+      width: 100px; top: 8%; left: 3%;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+      animation: floatY 7s ease-in-out infinite reverse;
+    }
+
+    /* Planeta */
+    .planeta-deco {
+      position: fixed; z-index: 2;
+      width: 110px; top: -10px; right: 22%;
+      opacity: 0.75;
+      animation: floatY 9s ease-in-out infinite;
+    }
+
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Card — LOGIN */
+    .card {
+      position: fixed; z-index: 10;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 340px;
+      background: rgba(8, 2, 50, 0.85);
+      border: 2px solid rgba(99,102,241,0.45);
+      border-radius: 28px;
+      padding: 32px 30px 36px;
+      text-align: center;
+      box-shadow: 0 0 80px rgba(79,70,229,0.3), 0 24px 60px rgba(0,0,0,0.7);
+      backdrop-filter: blur(14px);
+    }
+
+    .logo-img { width: 70px; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(120,60,255,0.5)); }
+
+    .titulo {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.7rem;
+      color: #fbbf24;
+      text-shadow: 0 0 16px #f59e0b, 2px 2px 0 #92400e;
+      margin-bottom: 2px;
+    }
+    .subtitulo { color: #a5b4fc; font-size: 0.8rem; margin-bottom: 22px; }
+
+    label { display: block; color: #e9d5ff; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; text-align: left; }
+
+    .input-wrap { position: relative; margin-bottom: 12px; }
+    .input-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 1rem; pointer-events: none; }
+    input {
+      width: 100%;
+      padding: 13px 14px 13px 44px;
+      border-radius: 50px;
+      border: 2px solid rgba(99,102,241,0.4);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      outline: none;
+      transition: border 0.2s, background 0.2s;
+    }
+    input::placeholder { color: rgba(255,255,255,0.28); font-weight: 400; }
+    input:focus { border-color: #6366f1; background: rgba(255,255,255,0.13); }
+
+    .btn-entrar {
+      width: 100%; padding: 15px;
+      border-radius: 50px; border: none;
+      background: linear-gradient(to bottom, #818cf8, #4f46e5);
+      color: #fff; font-size: 1.15rem;
+      font-family: 'Fredoka One', cursive;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #3730a3, 0 8px 20px rgba(79,70,229,0.4);
+      transition: transform 0.1s, box-shadow 0.1s;
+      margin-top: 8px;
+    }
+    .btn-entrar:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #3730a3; }
+    .btn-entrar:active { transform: translateY(3px); box-shadow: 0 1px 0 #3730a3; }
+
+    .error-box { background: rgba(239,68,68,0.18); border: 1px solid rgba(239,68,68,0.4); border-radius: 12px; color: #fca5a5; font-size: 0.8rem; padding: 8px 14px; margin-top: 10px; display: none; }
+    .ok-box { background: rgba(52,211,153,0.18); border: 1px solid rgba(52,211,153,0.4); border-radius: 12px; color: #6ee7b7; font-size: 0.8rem; padding: 8px 14px; margin-top: 8px; display: none; }
+
+    /* PANEL ADMIN */
+    #panel-admin { display: none; }
+    #panel-login { display: block; }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .btn-logout {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px; color: rgba(255,255,255,0.5);
+      font-size: 0.7rem; padding: 4px 10px; cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+    }
+    .btn-logout:hover { color: #fff; }
+
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 18px 0; }
+    .section-label { color: #a5b4fc; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; text-align: left; margin-bottom: 6px; }
+
+    .badge-clave {
+      background: rgba(99,102,241,0.18);
+      border: 1px solid rgba(99,102,241,0.35);
+      border-radius: 12px; padding: 9px 14px;
+      color: #c7d2fe; font-size: 0.82rem; text-align: left; margin-bottom: 12px;
+    }
+    .badge-clave strong { color: #fde68a; }
+
+    .btn-verde {
+      width: 100%; padding: 13px; border-radius: 50px; border: none;
+      background: linear-gradient(to bottom, #34d399, #059669);
+      color: #fff; font-size: 1rem;
+      font-family: 'Fredoka One', cursive;
+      cursor: pointer; box-shadow: 0 4px 0 #065f46;
+      transition: transform 0.1s; margin-top: 6px;
+    }
+    .btn-verde:active { transform: translateY(2px); box-shadow: 0 1px 0 #065f46; }
+
+    .btn-rojo {
+      width: 100%; padding: 11px; border-radius: 50px; border: none;
+      background: linear-gradient(to bottom, #f87171, #dc2626);
+      color: #fff; font-size: 0.95rem;
+      font-family: 'Fredoka One', cursive;
+      cursor: pointer; box-shadow: 0 4px 0 #991b1b;
+      transition: transform 0.1s; margin-top: 6px;
+    }
+    .btn-rojo:active { transform: translateY(2px); box-shadow: 0 1px 0 #991b1b; }
+
+    .back { position: fixed; bottom: 10px; left: 14px; z-index: 20; color: rgba(255,255,255,0.22); font-size: 0.7rem; text-decoration: none; font-family: 'Nunito', sans-serif; }
+    .back:hover { color: rgba(255,255,255,0.6); }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+  <div class="bg-overlay"></div>
+
+  <img src="assets/Planeta_2.png" class="planeta-deco" alt="">
+  <img src="assets/astronauta.PNG" class="astronauta" alt="">
+  <img src="assets/alien_cool.PNG" class="alien-deco" alt="">
+
+  <div class="card">
+
+    <!-- LOGIN -->
+    <div id="panel-login">
+      <img src="assets/icono.png" class="logo-img" alt="Logo">
+      <div class="titulo">Zona de Maestros</div>
+      <div class="subtitulo">Administra tu aventura</div>
+
+      <label>Usuario</label>
+      <div class="input-wrap">
+        <span class="input-icon">👤</span>
+        <input type="text" id="input-usuario" placeholder="Nombre de usuario" autocomplete="off">
+      </div>
+
+      <label>Contraseña</label>
+      <div class="input-wrap">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="input-admin" placeholder="Contraseña" autocomplete="off">
+      </div>
+
+      <button class="btn-entrar" onclick="loginAdmin()">Entrar al panel</button>
+      <div class="error-box" id="msg-login">Datos incorrectos. Intenta de nuevo.</div>
+      <div class="subtitulo" style="margin-top:12px;margin-bottom:0;">Acceso exclusivo para docentes</div>
+    </div>
+
+    <!-- PANEL -->
+    <div id="panel-admin">
+      <div class="panel-header">
+        <div class="titulo" style="font-size:1.2rem">¡Hola, profe! 👋</div>
+        <button class="btn-logout" onclick="logout()">Salir</button>
+      </div>
+      <div class="subtitulo" style="margin-bottom:14px">Panel de administración</div>
+
+      <div class="section-label">Clave actual de los niños</div>
+      <div class="badge-clave">Clave activa: <strong id="clave-actual">cargando...</strong></div>
+
+      <div class="section-label">Nueva clave para los niños</div>
+      <div class="input-wrap">
+        <span class="input-icon">✏️</span>
+        <input type="text" id="nueva-clave-ninos" placeholder="Nueva clave" maxlength="20" autocomplete="off">
+      </div>
+      <button class="btn-verde" onclick="cambiarClaveNinos()">Guardar nueva clave</button>
+      <div class="ok-box" id="ok-ninos">¡Clave actualizada!</div>
+      <div class="error-box" id="err-ninos">Error al actualizar.</div>
+
+      <div class="divider"></div>
+
+      <div class="section-label">Cambiar contraseña de administrador</div>
+      <div class="input-wrap">
+        <span class="input-icon">🔑</span>
+        <input type="text" id="nueva-clave-admin" placeholder="Nueva contraseña admin" maxlength="30" autocomplete="off">
+      </div>
+      <button class="btn-rojo" onclick="cambiarClaveAdmin()">Cambiar contraseña admin</button>
+      <div class="ok-box" id="ok-admin">¡Contraseña actualizada!</div>
+      <div class="error-box" id="err-admin">Error al actualizar.</div>
+    </div>
+
+  </div>
+
+  <a href="index.html" class="back">← Volver al juego</a>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDZmreqSAs9ZqDfZk8jyPk-zu34Uz_mn3E",
+      authDomain: "mati-evolucion.firebaseapp.com",
+      databaseURL: "https://mati-evolucion-default-rtdb.firebaseio.com",
+      projectId: "mati-evolucion",
+      storageBucket: "mati-evolucion.firebasestorage.app",
+      messagingSenderId: "480449181652",
+      appId: "1:480449181652:web:e256a47a295d4e44d20841"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const USUARIO_FIJO = "profe";
+
+    window.loginAdmin = async function() {
+      const usuario = document.getElementById('input-usuario').value.trim().toLowerCase();
+      const pass = document.getElementById('input-admin').value.trim();
+      if (!usuario || !pass) return;
+      const snap = await get(ref(db, 'claves/admin'));
+      if (usuario === USUARIO_FIJO && pass === snap.val()) {
+        document.getElementById('panel-login').style.display = 'none';
+        document.getElementById('panel-admin').style.display = 'block';
+        const snapN = await get(ref(db, 'claves/ninos'));
+        document.getElementById('clave-actual').textContent = snapN.val() || '(no configurada)';
+      } else {
+        document.getElementById('msg-login').style.display = 'block';
+      }
+    };
+
+    window.logout = function() {
+      document.getElementById('panel-login').style.display = 'block';
+      document.getElementById('panel-admin').style.display = 'none';
+      document.getElementById('input-usuario').value = '';
+      document.getElementById('input-admin').value = '';
+    };
+
+    window.cambiarClaveNinos = async function() {
+      const nueva = document.getElementById('nueva-clave-ninos').value.trim();
+      if (!nueva) return;
+      try {
+        await set(ref(db, 'claves/ninos'), nueva);
+        document.getElementById('clave-actual').textContent = nueva;
+        document.getElementById('nueva-clave-ninos').value = '';
+        document.getElementById('ok-ninos').style.display = 'block';
+        setTimeout(() => document.getElementById('ok-ninos').style.display = 'none', 3000);
+      } catch { document.getElementById('err-ninos').style.display = 'block'; }
+    };
+
+    window.cambiarClaveAdmin = async function() {
+      const nueva = document.getElementById('nueva-clave-admin').value.trim();
+      if (!nueva) return;
+      try {
+        await set(ref(db, 'claves/admin'), nueva);
+        document.getElementById('nueva-clave-admin').value = '';
+        document.getElementById('ok-admin').style.display = 'block';
+        setTimeout(() => document.getElementById('ok-admin').style.display = 'none', 3000);
+      } catch { document.getElementById('err-admin').style.display = 'block'; }
+    };
+
+    document.getElementById('input-admin').addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.loginAdmin();
+    });
+  </script>
+</body>
+</html>

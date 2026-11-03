@@ -1,220 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>mati-evolucion</title>
-		<style>
-html, body, #canvas {
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mati Evolución</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap');
 
-body {
-	color: white;
-	background-color: black;
-	overflow: hidden;
-	touch-action: none;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-#canvas {
-	display: block;
-}
+    body {
+      min-height: 100vh;
+      background: #0d062e;
+      font-family: 'Nunito', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
 
-#canvas:focus {
-	outline: none;
-}
+    /* Fondo del juego */
+    .bg {
+      position: fixed; inset: 0;
+      background-image: url('assets/Fondo.png');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0;
+      background: rgba(5, 0, 30, 0.45);
+      z-index: 1;
+    }
 
-#status, #status-splash, #status-progress {
-	position: absolute;
-	left: 0;
-	right: 0;
-}
+    /* Planetas decorativos */
+    .planeta1 {
+      position: fixed; z-index: 2;
+      width: 130px; top: -20px; left: -20px;
+      opacity: 0.85;
+      animation: floatY 6s ease-in-out infinite;
+    }
+    .planeta2 {
+      position: fixed; z-index: 2;
+      width: 90px; top: 10%; right: 3%;
+      opacity: 0.7;
+      animation: floatY 8s ease-in-out infinite reverse;
+    }
+    .planeta3 {
+      position: fixed; z-index: 2;
+      width: 70px; bottom: 18%; left: 3%;
+      opacity: 0.6;
+      animation: floatY 7s ease-in-out infinite;
+    }
 
-#status, #status-splash {
-	top: 0;
-	bottom: 0;
-}
+    /* Mati personaje */
+    .mati {
+      position: fixed; z-index: 3;
+      width: 220px;
+      bottom: 0; left: 4%;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+      animation: floatY 5s ease-in-out infinite;
+    }
 
-#status {
-	background-color: #242424;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
-}
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
 
-#status-splash {
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
-}
+    /* Card de login */
+    .card {
+      position: fixed; z-index: 10;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 340px;
+      background: rgba(10, 4, 60, 0.82);
+      border: 2px solid rgba(180, 120, 255, 0.45);
+      border-radius: 28px;
+      padding: 36px 32px 40px;
+      text-align: center;
+      box-shadow: 0 0 80px rgba(120, 60, 255, 0.35), 0 24px 60px rgba(0,0,0,0.7);
+      backdrop-filter: blur(14px);
+    }
 
-#status-splash.show-image--false {
-	display: none;
-}
+    .logo-img {
+      width: 80px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 4px 12px rgba(180,100,255,0.6));
+    }
 
-#status-splash.fullsize--true {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
+    .titulo {
+      font-family: 'Fredoka One', cursive;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .titulo .mati-t { display: block; font-size: 2.6rem; color: #60efff; text-shadow: 0 0 18px #22d3ee, 3px 3px 0 #0e7490; }
+    .titulo .evol { display: block; font-size: 1.8rem; color: #fbbf24; text-shadow: 0 0 16px #f59e0b, 2px 2px 0 #92400e; }
 
-#status-splash.use-filter--false {
-	image-rendering: pixelated;
-}
+    .subtitulo { color: #c4b5fd; font-size: 0.85rem; margin: 8px 0 26px; }
 
-#status-progress, #status-notice {
-	display: none;
-}
+    .input-wrap {
+      position: relative; margin-bottom: 14px;
+    }
+    .input-icon {
+      position: absolute; left: 16px; top: 50%;
+      transform: translateY(-50%);
+      width: 20px; opacity: 0.7;
+    }
+    input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      border-radius: 50px;
+      border: 2px solid rgba(168,85,247,0.45);
+      background: rgba(255,255,255,0.09);
+      color: #fff;
+      font-size: 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      letter-spacing: 3px;
+      outline: none;
+      transition: border 0.2s, background 0.2s;
+    }
+    input::placeholder { letter-spacing: 1px; color: rgba(255,255,255,0.3); font-weight: 400; }
+    input:focus { border-color: #a855f7; background: rgba(255,255,255,0.14); }
 
-#status-progress {
-	bottom: 10%;
-	width: 50%;
-	margin: 0 auto;
-}
+    .btn-jugar {
+      width: 100%;
+      padding: 16px;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(to bottom, #fde047, #f59e0b);
+      color: #78350f;
+      font-size: 1.2rem;
+      font-family: 'Fredoka One', cursive;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #92400e, 0 10px 24px rgba(245,158,11,0.35);
+      transition: transform 0.1s, box-shadow 0.1s;
+      margin-top: 6px;
+    }
+    .btn-jugar:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #92400e, 0 14px 28px rgba(245,158,11,0.4); }
+    .btn-jugar:active { transform: translateY(3px); box-shadow: 0 2px 0 #92400e; }
 
-#status-notice {
-	background-color: #5b3943;
-	border-radius: 0.5rem;
-	border: 1px solid #9b3943;
-	color: #e0e0e0;
-	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	line-height: 1.3;
-	margin: 0 2rem;
-	overflow: hidden;
-	padding: 1rem;
-	text-align: center;
-	z-index: 1;
-}
-		</style>
-		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
-<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+    .error-box {
+      margin-top: 12px;
+      background: rgba(239,68,68,0.18);
+      border: 1px solid rgba(239,68,68,0.4);
+      border-radius: 14px;
+      color: #fca5a5;
+      font-size: 0.82rem;
+      padding: 8px 14px;
+      display: none;
+    }
+    .loading-txt { color: #c084fc; font-size: 0.82rem; margin-top: 10px; display: none; }
+    .pie { color: rgba(196,181,253,0.55); font-size: 0.78rem; margin-top: 14px; }
 
-	</head>
-	<body>
-		<canvas id="canvas">
-			Your browser does not support the canvas tag.
-		</canvas>
+    .link-admin {
+      position: fixed; bottom: 10px; right: 14px; z-index: 20;
+      color: rgba(255,255,255,0.18); font-size: 0.68rem;
+      text-decoration: none; font-family: 'Nunito', sans-serif;
+    }
+    .link-admin:hover { color: rgba(255,255,255,0.5); }
+  </style>
+</head>
+<body>
 
-		<noscript>
-			Your browser does not support JavaScript.
-		</noscript>
+  <div class="bg"></div>
+  <div class="bg-overlay"></div>
 
-		<div id="status">
-			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
-			<progress id="status-progress"></progress>
-			<div id="status-notice"></div>
-		</div>
+  <!-- Planetas decorativos -->
+  <img src="assets/Planeta_2.png" class="planeta1" alt="">
+  <img src="assets/Planeta_3.png" class="planeta2" alt="">
+  <img src="assets/Planeta_1.png" class="planeta3" alt="">
 
-		<script src="index.js"></script>
-		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":62711940,"index.wasm":37685705},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
-const GODOT_THREADS_ENABLED = false;
-const engine = new Engine(GODOT_CONFIG);
+  <!-- Personaje Mati -->
+  <img src="assets/mati_frente.PNG" class="mati" alt="">
 
-(function () {
-	const statusOverlay = document.getElementById('status');
-	const statusProgress = document.getElementById('status-progress');
-	const statusNotice = document.getElementById('status-notice');
+  <!-- Card de acceso -->
+  <div class="card">
+    <img src="assets/icono.png" class="logo-img" alt="Logo">
+    <div class="titulo">
+      <span class="mati-t">MATI</span>
+      <span class="evol">EVOLUCIÓN</span>
+    </div>
+    <div class="subtitulo">¡La aventura matemática comienza!</div>
 
-	let initializing = true;
-	let statusMode = '';
+    <div class="input-wrap">
+      <span class="input-icon">🔒</span>
+      <input type="password" id="clave" placeholder="Clave de acceso" maxlength="30" autocomplete="off">
+    </div>
 
-	function setStatusMode(mode) {
-		if (statusMode === mode || !initializing) {
-			return;
-		}
-		if (mode === 'hidden') {
-			statusOverlay.remove();
-			initializing = false;
-			return;
-		}
-		statusOverlay.style.visibility = 'visible';
-		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
-		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
-		statusMode = mode;
-	}
+    <button class="btn-jugar" onclick="verificar()">Entrar a jugar ▶</button>
+    <div class="error-box" id="error">Clave incorrecta. Pide la clave a tu maestro.</div>
+    <div class="loading-txt" id="loading">Verificando...</div>
+    <div class="pie">¿Listo para explorar?</div>
+  </div>
 
-	function setStatusNotice(text) {
-		while (statusNotice.lastChild) {
-			statusNotice.removeChild(statusNotice.lastChild);
-		}
-		const lines = text.split('\n');
-		lines.forEach((line) => {
-			statusNotice.appendChild(document.createTextNode(line));
-			statusNotice.appendChild(document.createElement('br'));
-		});
-	}
+  <a href="admin.html" class="link-admin">Maestros</a>
 
-	function displayFailureNotice(err) {
-		console.error(err);
-		if (err instanceof Error) {
-			setStatusNotice(err.message);
-		} else if (typeof err === 'string') {
-			setStatusNotice(err);
-		} else {
-			setStatusNotice('An unknown error occurred.');
-		}
-		setStatusMode('notice');
-		initializing = false;
-	}
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-	const missing = Engine.getMissingFeatures({
-		threads: GODOT_THREADS_ENABLED,
-	});
+    const firebaseConfig = {
+      apiKey: "AIzaSyDZmreqSAs9ZqDfZk8jyPk-zu34Uz_mn3E",
+      authDomain: "mati-evolucion.firebaseapp.com",
+      databaseURL: "https://mati-evolucion-default-rtdb.firebaseio.com",
+      projectId: "mati-evolucion",
+      storageBucket: "mati-evolucion.firebasestorage.app",
+      messagingSenderId: "480449181652",
+      appId: "1:480449181652:web:e256a47a295d4e44d20841"
+    };
 
-	if (missing.length !== 0) {
-		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
-			let serviceWorkerRegistrationPromise;
-			try {
-				serviceWorkerRegistrationPromise = navigator.serviceWorker.getRegistration();
-			} catch (err) {
-				serviceWorkerRegistrationPromise = Promise.reject(new Error('Service worker registration failed.'));
-			}
-			// There's a chance that installing the service worker would fix the issue
-			Promise.race([
-				serviceWorkerRegistrationPromise.then((registration) => {
-					if (registration != null) {
-						return Promise.reject(new Error('Service worker already exists.'));
-					}
-					return registration;
-				}).then(() => engine.installServiceWorker()),
-				// For some reason, `getRegistration()` can stall
-				new Promise((resolve) => {
-					setTimeout(() => resolve(), 2000);
-				}),
-			]).then(() => {
-				// Reload if there was no error.
-				window.location.reload();
-			}).catch((err) => {
-				console.error('Error while registering service worker:', err);
-			});
-		} else {
-			// Display the message as usual
-			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-			displayFailureNotice(missingMsg + missing.join('\n'));
-		}
-	} else {
-		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-		}, displayFailureNotice);
-	}
-}());
-		</script>
-	</body>
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.verificar = async function() {
+      const clave = document.getElementById('clave').value.trim();
+      if (!clave) return;
+      document.getElementById('error').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      try {
+        const snap = await get(ref(db, 'claves/ninos'));
+        document.getElementById('loading').style.display = 'none';
+        if (clave === snap.val()) {
+          window.location.href = 'game.html';
+        } else {
+          document.getElementById('error').style.display = 'block';
+        }
+      } catch {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').textContent = 'Error de conexión. Verifica el internet.';
+        document.getElementById('error').style.display = 'block';
+      }
+    };
+
+    document.getElementById('clave').addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.verificar();
+    });
+  </script>
+</body>
 </html>
-
