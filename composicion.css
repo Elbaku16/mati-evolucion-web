@@ -1,17 +1,13 @@
 /* ============================================================
    MATI EVOLUCIÓN — Composición visual de la pantalla de acceso
-   Controla tamaños y posiciones de cada elemento decorativo.
-   NO modifica lógica, autenticación ni colores del formulario.
    ============================================================ */
 
-/* ── PERSONAJE MATI ──────────────────────────────────────────
-   Inferior izquierda, mirando a la derecha (scaleX en HTML).
-   Tamaño: 30-34% de la altura de pantalla.              */
+/* ── PERSONAJE MATI ── inferior izquierda, mirando a la derecha */
 .mati {
   position: fixed;
-  bottom: clamp(50px, 7vh, 90px);
-  left:   clamp(15px, 3vw, 55px);
-  height: clamp(130px, 30vh, 240px);
+  bottom: 4vh;
+  left:   clamp(10px, 3vw, 50px);
+  height: clamp(150px, 26vh, 230px);
   width:  auto;
   object-fit: contain;
   transform: scaleX(-1);
@@ -20,66 +16,59 @@
   animation: flotarMati 5s ease-in-out infinite;
 }
 
-/* ── PLANETA AZUL ────────────────────────────────────────────
-   Esquina superior izquierda, completamente visible.
-   Tamaño: 8-9% del ancho, nunca cortado por el borde.   */
+/* ── PLANETA AZUL ── esquina superior izquierda, siempre visible */
 .planeta-tl {
   position: fixed;
-  top:  clamp(12px, 2.5vh, 40px);
-  left: clamp(12px, 2vw,   40px);
-  width: clamp(90px, 9vw, 160px);
+  top:  clamp(10px, 2vh, 30px);
+  left: clamp(10px, 2vw, 30px);
+  width: clamp(110px, 11vw, 180px);
   height: auto;
   z-index: 2;
   filter: drop-shadow(0 8px 22px rgba(0,0,0,0.5));
   animation: flotar 7s ease-in-out infinite;
 }
 
-/* ── PLANETA MORADO ──────────────────────────────────────────
-   Esquina superior derecha, completamente visible.
-   Ligeramente más pequeño que el azul para asimetría.   */
+/* ── PLANETA MORADO ── esquina superior derecha, siempre visible */
 .planeta-tr {
   position: fixed;
-  top:   clamp(12px, 2.5vh, 40px);
-  right: clamp(12px, 2vw,   40px);
-  width: clamp(80px, 8vw, 145px);
+  top:   clamp(10px, 2vh, 30px);
+  right: clamp(10px, 2vw, 30px);
+  width: clamp(90px, 9.5vw, 160px);
   height: auto;
   z-index: 2;
   filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
   animation: flotar 9s ease-in-out infinite reverse;
 }
 
-/* ── PLANETA HIELO ───────────────────────────────────────────
-   Lateral derecho zona media, decorativo y más pequeño.  */
+/* ── PLANETA HIELO ── lateral derecho zona media */
 .planeta-mid {
   position: fixed;
-  top:   35%;
-  right: clamp(18px, 4vw, 60px);
-  width: clamp(55px, 5.5vw, 95px);
+  top:   36%;
+  right: clamp(14px, 3.5vw, 55px);
+  width: clamp(55px, 5.5vw, 90px);
   height: auto;
   z-index: 3;
-  opacity: 0.88;
+  opacity: 0.9;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
   animation: flotar 11s ease-in-out infinite;
 }
 
-/* ── COHETE ──────────────────────────────────────────────────
-   Superior derecho, claramente separado del logotipo.    */
+/* ── COHETE ── superior derecho, separado del logo */
 .cohete {
   position: fixed;
-  top:   clamp(14px, 3vh, 50px);
-  right: clamp(90px, 16vw, 220px);
-  width: clamp(55px, 5vw, 88px);
+  top:   clamp(12px, 2.5vh, 40px);
+  right: clamp(80px, 15vw, 200px);
+  width: clamp(50px, 5vw, 82px);
   height: auto;
   z-index: 3;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
   animation: flotarCohete 4s ease-in-out infinite;
 }
 
-/* ── LOGOTIPO ────────────────────────────────────────────────
-   Centrado zona superior. No se modifica.                */
+/* ── LOGOTIPO ── centrado zona superior */
 .logo {
   position: fixed;
-  top:  clamp(30px, 4vh, 65px);
+  top:  clamp(28px, 3.5vh, 60px);
   left: 50%;
   transform: translateX(-50%);
   width: clamp(230px, 38vw, 450px);
@@ -88,11 +77,10 @@
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
 }
 
-/* ── FORMULARIO ──────────────────────────────────────────────
-   Centro de pantalla, zona espacial (no sobre el pasto). */
+/* ── FORMULARIO ── zona espacial, encima del pasto */
 .form-wrap {
   position: fixed;
-  top:  48%;
+  top:  38%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: min(300px, 80vw);
@@ -104,7 +92,7 @@
   margin-bottom: 24px;
 }
 
-/* ── ANIMACIONES ─────────────────────────────────────────────*/
+/* ── ANIMACIONES ── */
 @keyframes flotar {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-14px); }
