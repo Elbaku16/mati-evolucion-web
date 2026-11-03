@@ -16,7 +16,7 @@
       background: #2e0d6e;
     }
 
-    /* ── CAPA 1: Fondo real del menú (espacio + pasto integrado) ── */
+    /* ── FONDO real del menú (espacio violeta + pasto verde) ── */
     .fondo {
       position: fixed; inset: 0; z-index: 1;
       background-image: url('assets/fondo_menu.JPG');
@@ -24,74 +24,89 @@
       background-position: center bottom;
     }
 
-    /* ── CAPA 2: Planetas decorativos ── */
+    /* ── PLANETA AZUL — esquina superior izquierda, grande ── */
     .planeta-tl {
-      position: fixed; top: -20px; left: -20px;
-      width: clamp(140px, 20vw, 240px);
+      position: fixed;
+      top: -30px; left: -30px;
+      width: clamp(180px, 26vw, 320px);
       z-index: 2;
       animation: flotar 7s ease-in-out infinite;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
     }
+
+    /* ── PLANETA MORADO — esquina superior derecha, grande ── */
     .planeta-tr {
-      position: fixed; top: 20px; right: 20px;
-      width: clamp(100px, 14vw, 180px);
+      position: fixed;
+      top: -10px; right: -10px;
+      width: clamp(150px, 20vw, 260px);
       z-index: 2;
       animation: flotar 9s ease-in-out infinite reverse;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
-    }
-    .planeta-br {
-      position: fixed; bottom: 160px; right: 50px;
-      width: clamp(70px, 10vw, 130px);
-      z-index: 4;
-      animation: flotar 6s ease-in-out infinite;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
     }
 
-    /* ── Cohete ── */
+    /* ── PLANETA HIELO — lateral derecho medio, decorativo ── */
+    .planeta-mid {
+      position: fixed;
+      top: 38%; right: clamp(10px, 3vw, 40px);
+      width: clamp(60px, 8vw, 110px);
+      z-index: 3;
+      animation: flotar 11s ease-in-out infinite;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+      opacity: 0.85;
+    }
+
+    /* ── COHETE — zona superior lateral izquierda, separado del logo ── */
     .cohete {
-      position: fixed; top: 10px; left: 50%;
-      transform: translateX(-50%);
-      width: clamp(55px, 7vw, 95px);
+      position: fixed;
+      top: clamp(12px, 4vh, 50px);
+      left: clamp(120px, 20vw, 260px);
+      width: clamp(55px, 7vw, 90px);
       z-index: 3;
       animation: flotarCohete 4s ease-in-out infinite;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
     }
 
-    /* ── CAPA 3: Logo oficial ── */
+    /* ── LOGOTIPO — centrado zona superior ── */
     .logo {
-      position: fixed; top: clamp(55px, 7vh, 95px);
+      position: fixed;
+      top: clamp(40px, 5vh, 80px);
       left: 50%; transform: translateX(-50%);
-      width: clamp(260px, 42vw, 500px);
+      width: clamp(240px, 40vw, 480px);
       z-index: 5;
       filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
     }
 
-    /* ── CAPA 4: Mati personaje — esquina inferior izquierda ── */
+    /* ── MATI — inferior izquierda, mirando a la derecha ── */
     .mati {
-      position: fixed; bottom: 60px; left: clamp(0px, 2vw, 30px);
-      width: clamp(130px, 18vw, 240px);
+      position: fixed;
+      bottom: 55px;
+      left: clamp(5px, 3vw, 50px);
+      width: clamp(140px, 20vw, 260px);
       z-index: 6;
+      transform: scaleX(-1);               /* voltea solo Mati para que mire a la derecha */
       filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-      animation: flotar 5s ease-in-out infinite;
+      animation: flotarMati 5s ease-in-out infinite;
     }
 
-    /* ── CAPA 5: Formulario — centro ligeramente abajo del logo ── */
+    /* ── FORMULARIO — centro vertical, debajo del logo ── */
     .form-wrap {
       position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      margin-top: clamp(60px, 10vh, 110px);
-      width: min(300px, 78vw);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      width: min(300px, 80vw);
       z-index: 7;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
-    .input-wrap { position: relative; margin-bottom: 10px; }
     input {
       width: 100%;
       padding: 14px 18px;
       border-radius: 50px;
       border: 2px solid rgba(255,255,255,0.4);
-      background: rgba(10,0,60,0.55);
+      background: rgba(10,0,60,0.6);
       backdrop-filter: blur(12px);
       color: #fff; font-size: 1rem;
       font-family: 'Nunito', sans-serif; font-weight: 700;
@@ -99,6 +114,7 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.4);
       transition: border 0.2s, background 0.2s;
       text-align: center;
+      margin-bottom: 20px;
     }
     input::placeholder { letter-spacing: 1px; color: rgba(255,255,255,0.5); font-weight: 600; }
     input:focus { border-color: rgba(255,255,255,0.75); background: rgba(10,0,80,0.7); }
@@ -116,13 +132,19 @@
     .btn-jugar:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #92400e; }
     .btn-jugar:active { transform: translateY(3px); box-shadow: 0 2px 0 #92400e; }
 
+    .pie {
+      text-align: center; color: rgba(255,255,255,0.65);
+      font-size: 0.8rem; margin-top: 12px; font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
+
     .error-box {
       background: rgba(239,68,68,0.3); border: 1px solid rgba(239,68,68,0.6);
       border-radius: 14px; color: #fca5a5;
       font-size: 0.82rem; padding: 8px 14px;
-      margin-top: 8px; text-align: center; display: none;
+      margin-top: 10px; text-align: center; display: none;
     }
-    .loading-txt { color: #fff; font-size: 0.82rem; margin-top: 8px; text-align: center; display: none; }
+    .loading-txt { color: #fff; font-size: 0.82rem; margin-top: 10px; text-align: center; display: none; }
 
     .link-admin {
       position: fixed; bottom: 6px; right: 14px; z-index: 20;
@@ -133,39 +155,48 @@
 
     @keyframes flotar {
       0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
+      50% { transform: translateY(-14px); }
+    }
+    @keyframes flotarMati {
+      0%,100% { transform: scaleX(-1) translateY(0); }
+      50% { transform: scaleX(-1) translateY(-10px); }
     }
     @keyframes flotarCohete {
-      0%,100% { transform: translateX(-50%) translateY(0) rotate(-8deg); }
-      50% { transform: translateX(-50%) translateY(-12px) rotate(-8deg); }
+      0%,100% { transform: translateY(0) rotate(-15deg); }
+      50% { transform: translateY(-12px) rotate(-15deg); }
     }
   </style>
 </head>
 <body>
 
-  <!-- CAPA 1: Fondo real del menú (espacio violeta + pasto verde) -->
+  <!-- Fondo: espacio violeta + pasto verde original del juego -->
   <div class="fondo"></div>
 
-  <!-- CAPA 2: Planetas reales del juego -->
+  <!-- Planeta azul: esquina superior izquierda, grande -->
   <img src="assets/Planeta_2.png" class="planeta-tl" alt="">
-  <img src="assets/Planeta_3.png" class="planeta-tr" alt="">
-  <img src="assets/planeta_morado.png" class="planeta-br" alt="">
 
-  <!-- Cohete real del juego -->
+  <!-- Planeta morado: esquina superior derecha, grande -->
+  <img src="assets/planeta_morado.png" class="planeta-tr" alt="">
+
+  <!-- Planeta hielo: lateral derecho medio, decorativo -->
+  <img src="assets/planeta_hielo.png" class="planeta-mid" alt="">
+
+  <!-- Cohete: lateral superior izquierdo, separado del logo -->
   <img src="assets/cohete_vertical.PNG" class="cohete" alt="">
 
-  <!-- CAPA 3: Logo oficial del juego -->
+  <!-- Logotipo oficial: centrado en zona superior -->
   <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
 
-  <!-- CAPA 4: Mati personaje — esquina inferior izquierda -->
+  <!-- Mati: inferior izquierda, mirando a la derecha (scaleX solo en este img) -->
   <img src="assets/mati_frente.PNG" class="mati" alt="">
 
-  <!-- CAPA 5: Formulario -->
+  <!-- Formulario: centro de pantalla, debajo del logo -->
   <div class="form-wrap">
     <input type="password" id="clave" placeholder="Escribe la clave de acceso" maxlength="30" autocomplete="off">
     <button class="btn-jugar" onclick="verificar()">¡A jugar!</button>
     <div class="error-box" id="error">Clave incorrecta. Pide la clave a tu maestro.</div>
     <div class="loading-txt" id="loading">Verificando...</div>
+    <div class="pie">¿Listo para explorar?</div>
   </div>
 
   <a href="admin.html" class="link-admin">Maestros</a>
