@@ -13,42 +13,45 @@
       width: 100%; height: 100%;
       overflow: hidden;
       font-family: 'Nunito', sans-serif;
-      background: #0d062e;
+      background: #2e0d6e;
     }
 
-    /* ── CAPA 1: Fondo espacial ── */
+    /* ── CAPA 1: Fondo real del menú (espacio + pasto integrado) ── */
     .fondo {
       position: fixed; inset: 0; z-index: 1;
-      background-image: url('assets/Fondo.png');
+      background-image: url('assets/fondo_menu.JPG');
       background-size: cover;
-      background-position: center;
+      background-position: center bottom;
     }
 
-    /* ── CAPA 2: Planetas y decoraciones ── */
+    /* ── CAPA 2: Planetas decorativos ── */
     .planeta-tl {
-      position: fixed; top: -15px; left: -15px;
-      width: clamp(100px, 14vw, 170px);
+      position: fixed; top: -20px; left: -20px;
+      width: clamp(140px, 20vw, 240px);
       z-index: 2;
       animation: flotar 7s ease-in-out infinite;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
     }
     .planeta-tr {
-      position: fixed; top: 30px; right: 30px;
-      width: clamp(70px, 10vw, 120px);
+      position: fixed; top: 20px; right: 20px;
+      width: clamp(100px, 14vw, 180px);
       z-index: 2;
       animation: flotar 9s ease-in-out infinite reverse;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
     }
     .planeta-br {
-      position: fixed; bottom: 120px; right: 40px;
-      width: clamp(50px, 7vw, 90px);
+      position: fixed; bottom: 160px; right: 50px;
+      width: clamp(70px, 10vw, 130px);
       z-index: 4;
       animation: flotar 6s ease-in-out infinite;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
     }
 
     /* ── Cohete ── */
     .cohete {
-      position: fixed; top: 15px; left: 50%;
+      position: fixed; top: 10px; left: 50%;
       transform: translateX(-50%);
-      width: clamp(60px, 7vw, 100px);
+      width: clamp(55px, 7vw, 95px);
       z-index: 3;
       animation: flotarCohete 4s ease-in-out infinite;
       filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
@@ -56,80 +59,55 @@
 
     /* ── CAPA 3: Logo oficial ── */
     .logo {
-      position: fixed; top: clamp(80px, 10vh, 120px);
+      position: fixed; top: clamp(55px, 7vh, 95px);
       left: 50%; transform: translateX(-50%);
-      width: clamp(260px, 45vw, 480px);
+      width: clamp(260px, 42vw, 500px);
       z-index: 5;
       filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
     }
 
-    /* ── CAPA 4: Mati personaje ── */
+    /* ── CAPA 4: Mati personaje — esquina inferior izquierda ── */
     .mati {
-      position: fixed; bottom: 90px; left: clamp(10px, 3vw, 50px);
-      width: clamp(160px, 22vw, 300px);
+      position: fixed; bottom: 60px; left: clamp(0px, 2vw, 30px);
+      width: clamp(130px, 18vw, 240px);
       z-index: 6;
       filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
       animation: flotar 5s ease-in-out infinite;
     }
 
-    /* ── CAPA 5: Pasto (CSS — no existe PNG de pasto en los assets) ── */
-    .pasto {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: 100px; z-index: 5;
-      background: linear-gradient(to top, #14532d 0%, #16a34a 55%, transparent 100%);
-    }
-    .pasto::before {
-      content: '';
-      position: absolute; top: -30px; left: 0; right: 0; height: 50px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40'%3E%3Cpath d='M0,40 Q8,5 16,40 Q24,8 32,40 Q40,2 48,40 Q56,10 64,40 Q72,4 80,40 Q88,12 96,40 Q104,3 112,40 Q120,9 128,40 Q136,2 144,40 Q152,11 160,40 Q168,5 176,40 Q184,8 192,40 Q200,2 208,40 Q216,10 224,40 Q232,4 240,40 Q248,12 256,40 Q264,3 272,40 Q280,9 288,40 Q296,2 300,40 Z' fill='%2316a34a'/%3E%3C/svg%3E") repeat-x;
-      background-size: 300px 40px;
-    }
-
-    /* ── CAPA 6: Formulario ── */
-    .subtitulo {
-      position: fixed; z-index: 7;
-      top: clamp(80px,10vh,120px);
-      top: calc(clamp(80px,10vh,120px) + clamp(260px,45vw,480px) * 0.38 + 10px);
-      left: 50%; transform: translateX(-50%);
-      color: #fff; font-size: clamp(0.9rem, 2vw, 1.2rem);
-      font-weight: 900; white-space: nowrap;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    }
-
+    /* ── CAPA 5: Formulario — centro ligeramente abajo del logo ── */
     .form-wrap {
-      position: fixed; bottom: 108px;
-      left: 50%; transform: translateX(-50%);
-      width: min(300px, 80vw);
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      margin-top: clamp(60px, 10vh, 110px);
+      width: min(300px, 78vw);
       z-index: 7;
     }
 
     .input-wrap { position: relative; margin-bottom: 10px; }
-    .input-icon {
-      position: absolute; left: 18px; top: 50%;
-      transform: translateY(-50%); font-size: 1rem;
-      pointer-events: none;
-    }
     input {
       width: 100%;
-      padding: 14px 18px 14px 48px;
+      padding: 14px 18px;
       border-radius: 50px;
-      border: 2px solid rgba(255,255,255,0.35);
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.4);
+      background: rgba(10,0,60,0.55);
+      backdrop-filter: blur(12px);
       color: #fff; font-size: 1rem;
       font-family: 'Nunito', sans-serif; font-weight: 700;
       letter-spacing: 2px; outline: none;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
       transition: border 0.2s, background 0.2s;
+      text-align: center;
     }
     input::placeholder { letter-spacing: 1px; color: rgba(255,255,255,0.5); font-weight: 600; }
-    input:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.25); }
+    input:focus { border-color: rgba(255,255,255,0.75); background: rgba(10,0,80,0.7); }
 
     .btn-jugar {
       width: 100%; padding: 15px;
       border-radius: 50px; border: none;
       background: linear-gradient(to bottom, #fde047, #f59e0b);
-      color: #78350f; font-size: 1.25rem;
+      color: #78350f; font-size: 1.3rem;
       font-family: 'Fredoka One', cursive;
       cursor: pointer;
       box-shadow: 0 6px 0 #92400e, 0 10px 24px rgba(245,158,11,0.4);
@@ -138,14 +116,8 @@
     .btn-jugar:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #92400e; }
     .btn-jugar:active { transform: translateY(3px); box-shadow: 0 2px 0 #92400e; }
 
-    .pie {
-      text-align: center; color: rgba(255,255,255,0.65);
-      font-size: 0.8rem; margin-top: 8px; font-weight: 700;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-    }
-
     .error-box {
-      background: rgba(239,68,68,0.25); border: 1px solid rgba(239,68,68,0.5);
+      background: rgba(239,68,68,0.3); border: 1px solid rgba(239,68,68,0.6);
       border-radius: 14px; color: #fca5a5;
       font-size: 0.82rem; padding: 8px 14px;
       margin-top: 8px; text-align: center; display: none;
@@ -154,7 +126,7 @@
 
     .link-admin {
       position: fixed; bottom: 6px; right: 14px; z-index: 20;
-      color: rgba(255,255,255,0.2); font-size: 0.65rem;
+      color: rgba(255,255,255,0.18); font-size: 0.65rem;
       text-decoration: none; font-family: 'Nunito', sans-serif;
     }
     .link-admin:hover { color: rgba(255,255,255,0.5); }
@@ -171,7 +143,7 @@
 </head>
 <body>
 
-  <!-- CAPA 1: Fondo -->
+  <!-- CAPA 1: Fondo real del menú (espacio violeta + pasto verde) -->
   <div class="fondo"></div>
 
   <!-- CAPA 2: Planetas reales del juego -->
@@ -185,22 +157,15 @@
   <!-- CAPA 3: Logo oficial del juego -->
   <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
 
-  <!-- CAPA 4: Mati personaje -->
+  <!-- CAPA 4: Mati personaje — esquina inferior izquierda -->
   <img src="assets/mati_frente.PNG" class="mati" alt="">
 
-  <!-- CAPA 5: Pasto -->
-  <div class="pasto"></div>
-
-  <!-- CAPA 6: Formulario -->
+  <!-- CAPA 5: Formulario -->
   <div class="form-wrap">
-    <div class="input-wrap">
-      <span class="input-icon">🔒</span>
-      <input type="password" id="clave" placeholder="Clave de acceso" maxlength="30" autocomplete="off">
-    </div>
-    <button class="btn-jugar" onclick="verificar()">Entrar a jugar ▶</button>
+    <input type="password" id="clave" placeholder="Escribe la clave de acceso" maxlength="30" autocomplete="off">
+    <button class="btn-jugar" onclick="verificar()">¡A jugar!</button>
     <div class="error-box" id="error">Clave incorrecta. Pide la clave a tu maestro.</div>
     <div class="loading-txt" id="loading">Verificando...</div>
-    <div class="pie">¿Listo para explorar? ✨</div>
   </div>
 
   <a href="admin.html" class="link-admin">Maestros</a>
