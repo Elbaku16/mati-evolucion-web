@@ -1,64 +1,62 @@
 /* ============================================================
-   MATI EVOLUCIÓN — Composición visual de la pantalla de acceso
+   MATI EVOLUCIÓN — Composición visual
    ============================================================ */
 
-/* ── LOGOTIPO ── centrado zona superior, deja espacio al form */
+/* ── LOGOTIPO ── */
 .logo {
   position: fixed;
   top:  clamp(18px, 2.5vh, 40px);
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(260px, 34vw, 480px);
+  width: clamp(300px, 36vw, 560px);
   height: auto;
   z-index: 5;
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
 }
 
-/* ── FORMULARIO ── debajo del logo, en zona espacial */
+/* ── FORMULARIO ── debajo del logo */
 .form-wrap {
   position: fixed;
-  top:  clamp(240px, 38vh, 440px);
+  top:  clamp(260px, 42vh, 480px);
   left: 50%;
   transform: translateX(-50%);
-  width: min(300px, 80vw);
+  width: min(320px, 80vw);
   z-index: 7;
 }
-
-/* Separación entre input y botón */
 .form-wrap input {
   margin-bottom: 24px;
 }
 
-/* ── PLANETA AZUL ── superior izquierda, grande y visible */
+/* ── PLANETA AZUL ── superior izquierda, grande */
 .planeta-tl {
   position: fixed;
   top:  clamp(10px, 2vh, 30px);
   left: clamp(10px, 2vw, 30px);
-  width: clamp(130px, 14vw, 220px);
+  width: clamp(200px, 18vw, 310px);
   height: auto;
   z-index: 2;
-  filter: drop-shadow(0 8px 22px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,0.5));
   animation: flotar 7s ease-in-out infinite;
 }
 
-/* ── PLANETA MORADO ── superior derecha, grande y visible */
+/* ── PLANETA MORADO ── superior derecha, grande */
 .planeta-tr {
   position: fixed;
   top:   clamp(10px, 2vh, 30px);
   right: clamp(10px, 2vw, 30px);
-  width: clamp(110px, 12vw, 190px);
+  width: clamp(170px, 15vw, 260px);
   height: auto;
   z-index: 2;
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,0.4));
   animation: flotar 9s ease-in-out infinite reverse;
 }
 
 /* ── PLANETA HIELO ── lateral derecho zona media */
 .planeta-mid {
   position: fixed;
-  top:   38%;
+  top:   36%;
   right: clamp(14px, 3vw, 50px);
-  width: clamp(60px, 6vw, 100px);
+  width: clamp(80px, 7vw, 120px);
   height: auto;
   z-index: 3;
   opacity: 0.9;
@@ -66,24 +64,24 @@
   animation: flotar 11s ease-in-out infinite;
 }
 
-/* ── COHETE ── superior derecho, separado del logo */
+/* ── COHETE ── superior, separado del logo */
 .cohete {
   position: fixed;
-  top:   clamp(12px, 2vh, 36px);
-  right: clamp(100px, 18vw, 280px);
-  width: clamp(55px, 5.5vw, 90px);
+  top:   clamp(14px, 2.5vh, 42px);
+  right: clamp(120px, 20vw, 320px);
+  width: clamp(80px, 7vw, 120px);
   height: auto;
   z-index: 3;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
   animation: flotarCohete 4s ease-in-out infinite;
 }
 
-/* ── PERSONAJE MATI ── inferior izquierda, mirando a la derecha */
+/* ── MATI ── inferior izquierda, mirando a la derecha */
 .mati {
   position: fixed;
   bottom: clamp(30px, 5vh, 80px);
   left:   clamp(10px, 3vw, 50px);
-  height: clamp(160px, 30vh, 260px);
+  height: clamp(180px, 32vh, 300px);
   width:  auto;
   object-fit: contain;
   transform: scaleX(-1);
@@ -95,7 +93,7 @@
 /* ── ANIMACIONES ── */
 @keyframes flotar {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-14px); }
+  50%       { transform: translateY(-16px); }
 }
 @keyframes flotarMati {
   0%, 100% { transform: scaleX(-1) translateY(0); }
@@ -103,5 +101,5 @@
 }
 @keyframes flotarCohete {
   0%, 100% { transform: translateY(0) rotate(-20deg); }
-  50%       { transform: translateY(-13px) rotate(-20deg); }
+  50%       { transform: translateY(-14px) rotate(-20deg); }
 }
