@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mati Evolución</title>
+  <link rel="stylesheet" href="composicion.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap');
 
@@ -16,7 +17,6 @@
       background: #2e0d6e;
     }
 
-    /* ── FONDO real (espacio violeta + pasto verde) ── */
     .fondo {
       position: fixed; inset: 0; z-index: 1;
       background-image: url('assets/fondo_menu.JPG');
@@ -24,80 +24,7 @@
       background-position: center bottom;
     }
 
-    /* ── PLANETA AZUL — esquina superior izquierda, muy grande ── */
-    .planeta-tl {
-      position: fixed;
-      top: -60px; left: -60px;
-      width: clamp(220px, 32vw, 400px);
-      z-index: 2;
-      animation: flotar 7s ease-in-out infinite;
-      filter: drop-shadow(0 10px 28px rgba(0,0,0,0.5));
-    }
-
-    /* ── PLANETA MORADO — esquina superior derecha, grande ── */
-    .planeta-tr {
-      position: fixed;
-      top: -30px; right: -20px;
-      width: clamp(180px, 24vw, 300px);
-      z-index: 2;
-      animation: flotar 9s ease-in-out infinite reverse;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
-    }
-
-    /* ── PLANETA HIELO — lateral derecho, zona media ── */
-    .planeta-mid {
-      position: fixed;
-      top: 32%; right: clamp(15px, 4vw, 55px);
-      width: clamp(80px, 10vw, 130px);
-      z-index: 3;
-      animation: flotar 11s ease-in-out infinite;
-      filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4));
-      opacity: 0.9;
-    }
-
-    /* ── COHETE — esquina superior derecha, lejos del logo ── */
-    .cohete {
-      position: fixed;
-      top: clamp(10px, 3vh, 40px);
-      right: clamp(60px, 12vw, 160px);
-      width: clamp(50px, 6vw, 80px);
-      z-index: 3;
-      animation: flotarCohete 4s ease-in-out infinite;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
-    }
-
-    /* ── LOGOTIPO — centrado, zona superior ── */
-    .logo {
-      position: fixed;
-      top: clamp(30px, 4vh, 65px);
-      left: 50%; transform: translateX(-50%);
-      width: clamp(240px, 38vw, 460px);
-      z-index: 5;
-      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
-    }
-
-    /* ── MATI — inferior izquierda, voltea para mirar a la derecha ── */
-    .mati {
-      position: fixed;
-      bottom: 50px;
-      left: clamp(10px, 4vw, 60px);
-      width: clamp(160px, 22vw, 280px);
-      z-index: 6;
-      transform: scaleX(-1);
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-      animation: flotarMati 5s ease-in-out infinite;
-    }
-
-    /* ── FORMULARIO — zona central del espacio (encima del pasto) ── */
-    .form-wrap {
-      position: fixed;
-      top: 48%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(300px, 80vw);
-      z-index: 7;
-    }
-
+    /* ── Formulario: estilos visuales (posición en composicion.css) ── */
     input {
       width: 100%;
       padding: 14px 18px;
@@ -112,7 +39,6 @@
       transition: border 0.2s, background 0.2s;
       text-align: center;
       display: block;
-      margin-bottom: 22px;
     }
     input::placeholder { letter-spacing: 1px; color: rgba(255,255,255,0.5); font-weight: 600; }
     input:focus { border-color: rgba(255,255,255,0.75); background: rgba(10,0,80,0.75); }
@@ -128,20 +54,18 @@
       transition: transform 0.1s, box-shadow 0.1s;
       display: block;
     }
-    .btn-jugar:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #92400e; }
-    .btn-jugar:active { transform: translateY(3px); box-shadow: 0 2px 0 #92400e; }
+    .btn-jugar:hover  { transform: translateY(-2px); box-shadow: 0 8px 0 #92400e; }
+    .btn-jugar:active { transform: translateY(3px);  box-shadow: 0 2px 0 #92400e; }
 
     .pie {
       text-align: center; color: rgba(255,255,255,0.65);
       font-size: 0.8rem; margin-top: 12px; font-weight: 700;
       text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     }
-
     .error-box {
       background: rgba(239,68,68,0.3); border: 1px solid rgba(239,68,68,0.6);
-      border-radius: 14px; color: #fca5a5;
-      font-size: 0.82rem; padding: 8px 14px;
-      margin-top: 10px; text-align: center; display: none;
+      border-radius: 14px; color: #fca5a5; font-size: 0.82rem;
+      padding: 8px 14px; margin-top: 10px; text-align: center; display: none;
     }
     .loading-txt { color: #fff; font-size: 0.82rem; margin-top: 10px; text-align: center; display: none; }
 
@@ -151,49 +75,35 @@
       text-decoration: none; font-family: 'Nunito', sans-serif;
     }
     .link-admin:hover { color: rgba(255,255,255,0.5); }
-
-    @keyframes flotar {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-16px); }
-    }
-    @keyframes flotarMati {
-      0%,100% { transform: scaleX(-1) translateY(0); }
-      50% { transform: scaleX(-1) translateY(-10px); }
-    }
-    @keyframes flotarCohete {
-      0%,100% { transform: translateY(0) rotate(-20deg); }
-      50% { transform: translateY(-14px) rotate(-20deg); }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Fondo: espacio violeta + pasto verde original -->
   <div class="fondo"></div>
 
-  <!-- Planeta azul: esquina superior izquierda, muy grande -->
-  <img src="assets/Planeta_2.png" class="planeta-tl" alt="">
+  <!-- Planeta azul: esquina superior izquierda, visible completo -->
+  <img src="assets/Planeta_2.png"       class="planeta-tl"  alt="">
 
-  <!-- Planeta morado: esquina superior derecha, grande -->
-  <img src="assets/planeta_morado.png" class="planeta-tr" alt="">
+  <!-- Planeta morado: esquina superior derecha, visible completo -->
+  <img src="assets/planeta_morado.png"  class="planeta-tr"  alt="">
 
-  <!-- Planeta hielo: lateral derecho zona media -->
-  <img src="assets/planeta_hielo.png" class="planeta-mid" alt="">
+  <!-- Planeta hielo: lateral derecho, decorativo -->
+  <img src="assets/planeta_hielo.png"   class="planeta-mid" alt="">
 
-  <!-- Cohete: esquina superior derecha, separado del logo -->
-  <img src="assets/cohete_vertical.PNG" class="cohete" alt="">
+  <!-- Cohete: superior derecho, separado del logo -->
+  <img src="assets/cohete_vertical.PNG" class="cohete"       alt="">
 
-  <!-- Logotipo oficial: centrado zona superior -->
-  <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
+  <!-- Logotipo oficial -->
+  <img src="assets/titulo_oficial.png"  class="logo"         alt="Mati Evolución">
 
-  <!-- Mati: inferior izquierda, mirando a la derecha -->
-  <img src="assets/mati_frente.PNG" class="mati" alt="">
+  <!-- Mati: inferior izquierda, mirando a la derecha (scaleX en composicion.css) -->
+  <img src="assets/mati_frente.PNG"     class="mati"         alt="">
 
-  <!-- Formulario: centro de pantalla -->
+  <!-- Formulario de acceso -->
   <div class="form-wrap">
     <input type="password" id="clave" placeholder="Escribe la clave de acceso" maxlength="30" autocomplete="off">
     <button class="btn-jugar" onclick="verificar()">¡A jugar!</button>
-    <div class="error-box" id="error">Clave incorrecta. Pide la clave a tu maestro.</div>
+    <div class="error-box"   id="error">Clave incorrecta. Pide la clave a tu maestro.</div>
     <div class="loading-txt" id="loading">Verificando...</div>
     <div class="pie">¿Listo para explorar?</div>
   </div>
@@ -215,12 +125,12 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+    const db  = getDatabase(app);
 
     window.verificar = async function() {
       const clave = document.getElementById('clave').value.trim();
       if (!clave) return;
-      document.getElementById('error').style.display = 'none';
+      document.getElementById('error').style.display   = 'none';
       document.getElementById('loading').style.display = 'block';
       try {
         const snap = await get(ref(db, 'claves/ninos'));
@@ -232,8 +142,8 @@
         }
       } catch {
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').textContent = 'Error de conexión. Verifica el internet.';
-        document.getElementById('error').style.display = 'block';
+        document.getElementById('error').textContent     = 'Error de conexión. Verifica el internet.';
+        document.getElementById('error').style.display   = 'block';
       }
     };
 
