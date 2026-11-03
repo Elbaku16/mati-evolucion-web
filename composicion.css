@@ -2,38 +2,51 @@
    MATI EVOLUCIÓN — Composición visual de la pantalla de acceso
    ============================================================ */
 
-/* ── PERSONAJE MATI ── inferior izquierda, mirando a la derecha */
-.mati {
+/* ── LOGOTIPO ── centrado zona superior, deja espacio al form */
+.logo {
   position: fixed;
-  bottom: 4vh;
-  left:   clamp(10px, 3vw, 50px);
-  height: clamp(150px, 26vh, 230px);
-  width:  auto;
-  object-fit: contain;
-  transform: scaleX(-1);
-  z-index: 6;
-  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.5));
-  animation: flotarMati 5s ease-in-out infinite;
+  top:  clamp(18px, 2.5vh, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(260px, 34vw, 480px);
+  height: auto;
+  z-index: 5;
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
 }
 
-/* ── PLANETA AZUL ── esquina superior izquierda, siempre visible */
+/* ── FORMULARIO ── debajo del logo, en zona espacial */
+.form-wrap {
+  position: fixed;
+  top:  clamp(240px, 38vh, 440px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(300px, 80vw);
+  z-index: 7;
+}
+
+/* Separación entre input y botón */
+.form-wrap input {
+  margin-bottom: 24px;
+}
+
+/* ── PLANETA AZUL ── superior izquierda, grande y visible */
 .planeta-tl {
   position: fixed;
   top:  clamp(10px, 2vh, 30px);
   left: clamp(10px, 2vw, 30px);
-  width: clamp(110px, 11vw, 180px);
+  width: clamp(130px, 14vw, 220px);
   height: auto;
   z-index: 2;
   filter: drop-shadow(0 8px 22px rgba(0,0,0,0.5));
   animation: flotar 7s ease-in-out infinite;
 }
 
-/* ── PLANETA MORADO ── esquina superior derecha, siempre visible */
+/* ── PLANETA MORADO ── superior derecha, grande y visible */
 .planeta-tr {
   position: fixed;
   top:   clamp(10px, 2vh, 30px);
   right: clamp(10px, 2vw, 30px);
-  width: clamp(90px, 9.5vw, 160px);
+  width: clamp(110px, 12vw, 190px);
   height: auto;
   z-index: 2;
   filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
@@ -43,9 +56,9 @@
 /* ── PLANETA HIELO ── lateral derecho zona media */
 .planeta-mid {
   position: fixed;
-  top:   36%;
-  right: clamp(14px, 3.5vw, 55px);
-  width: clamp(55px, 5.5vw, 90px);
+  top:   38%;
+  right: clamp(14px, 3vw, 50px);
+  width: clamp(60px, 6vw, 100px);
   height: auto;
   z-index: 3;
   opacity: 0.9;
@@ -56,40 +69,27 @@
 /* ── COHETE ── superior derecho, separado del logo */
 .cohete {
   position: fixed;
-  top:   clamp(12px, 2.5vh, 40px);
-  right: clamp(80px, 15vw, 200px);
-  width: clamp(50px, 5vw, 82px);
+  top:   clamp(12px, 2vh, 36px);
+  right: clamp(100px, 18vw, 280px);
+  width: clamp(55px, 5.5vw, 90px);
   height: auto;
   z-index: 3;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
   animation: flotarCohete 4s ease-in-out infinite;
 }
 
-/* ── LOGOTIPO ── centrado zona superior */
-.logo {
+/* ── PERSONAJE MATI ── inferior izquierda, mirando a la derecha */
+.mati {
   position: fixed;
-  top:  clamp(28px, 3.5vh, 60px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(230px, 38vw, 450px);
-  height: auto;
-  z-index: 5;
-  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
-}
-
-/* ── FORMULARIO ── zona espacial, encima del pasto */
-.form-wrap {
-  position: fixed;
-  top:  38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(300px, 80vw);
-  z-index: 7;
-}
-
-/* Separación entre input y botón */
-.form-wrap input {
-  margin-bottom: 24px;
+  bottom: clamp(30px, 5vh, 80px);
+  left:   clamp(10px, 3vw, 50px);
+  height: clamp(160px, 30vh, 260px);
+  width:  auto;
+  object-fit: contain;
+  transform: scaleX(-1);
+  z-index: 6;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.5));
+  animation: flotarMati 5s ease-in-out infinite;
 }
 
 /* ── ANIMACIONES ── */
