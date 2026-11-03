@@ -9,153 +9,127 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      width: 100vw; height: 100vh;
+    html, body {
+      width: 100%; height: 100%;
       overflow: hidden;
       font-family: 'Nunito', sans-serif;
-      position: relative;
+      background: #0d062e;
     }
 
-    /* Fondo */
-    body {
-      background: radial-gradient(ellipse at 50% 20%, #4c1d95 0%, #2e1065 40%, #0d062e 100%);
-    }
-    .bg {
-      position: absolute; inset: 0;
+    /* ── CAPA 1: Fondo espacial ── */
+    .fondo {
+      position: fixed; inset: 0; z-index: 1;
       background-image: url('assets/Fondo.png');
       background-size: cover;
-      background-position: center top;
-      z-index: 0;
+      background-position: center;
     }
 
-    /* Pasto inferior */
-    .grass {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 110px; z-index: 5;
+    /* ── CAPA 2: Planetas y decoraciones ── */
+    .planeta-tl {
+      position: fixed; top: -15px; left: -15px;
+      width: clamp(100px, 14vw, 170px);
+      z-index: 2;
+      animation: flotar 7s ease-in-out infinite;
+    }
+    .planeta-tr {
+      position: fixed; top: 30px; right: 30px;
+      width: clamp(70px, 10vw, 120px);
+      z-index: 2;
+      animation: flotar 9s ease-in-out infinite reverse;
+    }
+    .planeta-br {
+      position: fixed; bottom: 120px; right: 40px;
+      width: clamp(50px, 7vw, 90px);
+      z-index: 4;
+      animation: flotar 6s ease-in-out infinite;
+    }
+
+    /* ── Cohete ── */
+    .cohete {
+      position: fixed; top: 15px; left: 50%;
+      transform: translateX(-50%);
+      width: clamp(60px, 7vw, 100px);
+      z-index: 3;
+      animation: flotarCohete 4s ease-in-out infinite;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    }
+
+    /* ── CAPA 3: Logo oficial ── */
+    .logo {
+      position: fixed; top: clamp(80px, 10vh, 120px);
+      left: 50%; transform: translateX(-50%);
+      width: clamp(260px, 45vw, 480px);
+      z-index: 5;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+    }
+
+    /* ── CAPA 4: Mati personaje ── */
+    .mati {
+      position: fixed; bottom: 90px; left: clamp(10px, 3vw, 50px);
+      width: clamp(160px, 22vw, 300px);
+      z-index: 6;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+      animation: flotar 5s ease-in-out infinite;
+    }
+
+    /* ── CAPA 5: Pasto (CSS — no existe PNG de pasto en los assets) ── */
+    .pasto {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 100px; z-index: 5;
       background: linear-gradient(to top, #14532d 0%, #16a34a 55%, transparent 100%);
     }
-    .grass::before {
+    .pasto::before {
       content: '';
-      position: absolute; top: -28px; left: 0; right: 0; height: 48px;
+      position: absolute; top: -30px; left: 0; right: 0; height: 50px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40'%3E%3Cpath d='M0,40 Q8,5 16,40 Q24,8 32,40 Q40,2 48,40 Q56,10 64,40 Q72,4 80,40 Q88,12 96,40 Q104,3 112,40 Q120,9 128,40 Q136,2 144,40 Q152,11 160,40 Q168,5 176,40 Q184,8 192,40 Q200,2 208,40 Q216,10 224,40 Q232,4 240,40 Q248,12 256,40 Q264,3 272,40 Q280,9 288,40 Q296,2 300,40 Z' fill='%2316a34a'/%3E%3C/svg%3E") repeat-x;
       background-size: 300px 40px;
     }
 
-    /* Planetas */
-    .planeta-tl {
-      position: absolute; top: -10px; left: -10px;
-      width: 140px; z-index: 2;
-      animation: floatY 7s ease-in-out infinite;
-      opacity: 0.9;
-    }
-    .planeta-tr {
-      position: absolute; top: 20px; right: 20px;
-      width: 90px; z-index: 2;
-      animation: floatY 9s ease-in-out infinite reverse;
-      opacity: 0.85;
-    }
-    .planeta-br {
-      position: absolute; bottom: 90px; right: 20px;
-      width: 60px; z-index: 4;
-      animation: floatY 6s ease-in-out infinite;
-      opacity: 0.7;
-    }
-
-    /* Cohete */
-    .rocket {
-      position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-      font-size: 3rem; z-index: 3;
-      animation: floatY 4s ease-in-out infinite;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-    }
-
-    /* Titulo */
-    .titulo-wrap {
-      position: absolute; top: 80px; left: 0; right: 0;
-      text-align: center; z-index: 6;
-    }
-    .titulo {
-      font-family: 'Fredoka One', cursive;
-      line-height: 0.95;
-      display: inline-block;
-    }
-    .titulo .mati-t {
-      display: block; font-size: clamp(3rem, 10vw, 5.5rem);
-      color: #60efff;
-      -webkit-text-stroke: 3px #0e7490;
-      text-shadow: 0 0 30px #22d3ee, 4px 4px 0 #0e7490, 0 6px 20px rgba(0,0,0,0.5);
-      letter-spacing: 4px;
-    }
-    .titulo .evol-t {
-      display: block; font-size: clamp(2rem, 7vw, 3.8rem);
-      color: #fbbf24;
-      -webkit-text-stroke: 2px #92400e;
-      text-shadow: 0 0 24px #f59e0b, 3px 3px 0 #92400e, 0 5px 16px rgba(0,0,0,0.5);
-      letter-spacing: 2px;
-    }
-
-    /* Mati personaje */
-    .mati {
-      position: absolute; bottom: 95px; left: 3%;
-      width: clamp(160px, 22vw, 280px);
-      z-index: 6;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-      animation: floatY 5s ease-in-out infinite;
-    }
-
-    /* Subtitulo */
+    /* ── CAPA 6: Formulario ── */
     .subtitulo {
-      position: absolute; z-index: 6;
-      top: calc(80px + clamp(3rem,10vw,5.5rem) + clamp(2rem,7vw,3.8rem) + 24px);
-      left: 0; right: 0;
-      text-align: center;
-      color: #fff;
-      font-size: clamp(0.95rem, 2.5vw, 1.3rem);
-      font-weight: 900;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      position: fixed; z-index: 7;
+      top: clamp(80px,10vh,120px);
+      top: calc(clamp(80px,10vh,120px) + clamp(260px,45vw,480px) * 0.38 + 10px);
+      left: 50%; transform: translateX(-50%);
+      color: #fff; font-size: clamp(0.9rem, 2vw, 1.2rem);
+      font-weight: 900; white-space: nowrap;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
 
-    /* Formulario */
     .form-wrap {
-      position: absolute; bottom: 115px;
+      position: fixed; bottom: 108px;
       left: 50%; transform: translateX(-50%);
-      width: min(320px, 85vw);
+      width: min(300px, 80vw);
       z-index: 7;
     }
 
-    .input-wrap { position: relative; margin-bottom: 12px; }
+    .input-wrap { position: relative; margin-bottom: 10px; }
     .input-icon {
       position: absolute; left: 18px; top: 50%;
-      transform: translateY(-50%); font-size: 1.1rem;
+      transform: translateY(-50%); font-size: 1rem;
       pointer-events: none;
     }
     input {
       width: 100%;
-      padding: 15px 18px 15px 50px;
+      padding: 14px 18px 14px 48px;
       border-radius: 50px;
-      border: 2px solid rgba(255,255,255,0.3);
+      border: 2px solid rgba(255,255,255,0.35);
       background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(8px);
-      color: #fff;
-      font-size: 1rem;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 700;
-      letter-spacing: 2px;
-      outline: none;
-      transition: border 0.2s, background 0.2s;
+      backdrop-filter: blur(10px);
+      color: #fff; font-size: 1rem;
+      font-family: 'Nunito', sans-serif; font-weight: 700;
+      letter-spacing: 2px; outline: none;
       box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transition: border 0.2s, background 0.2s;
     }
     input::placeholder { letter-spacing: 1px; color: rgba(255,255,255,0.5); font-weight: 600; }
     input:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.25); }
 
     .btn-jugar {
-      width: 100%;
-      padding: 16px;
-      border-radius: 50px;
-      border: none;
+      width: 100%; padding: 15px;
+      border-radius: 50px; border: none;
       background: linear-gradient(to bottom, #fde047, #f59e0b);
-      color: #78350f;
-      font-size: 1.3rem;
+      color: #78350f; font-size: 1.25rem;
       font-family: 'Fredoka One', cursive;
       cursor: pointer;
       box-shadow: 0 6px 0 #92400e, 0 10px 24px rgba(245,158,11,0.4);
@@ -165,78 +139,59 @@
     .btn-jugar:active { transform: translateY(3px); box-shadow: 0 2px 0 #92400e; }
 
     .pie {
-      text-align: center;
-      color: rgba(255,255,255,0.65);
-      font-size: 0.82rem;
-      margin-top: 10px;
-      font-weight: 700;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      text-align: center; color: rgba(255,255,255,0.65);
+      font-size: 0.8rem; margin-top: 8px; font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     }
 
     .error-box {
-      background: rgba(239,68,68,0.25);
-      border: 1px solid rgba(239,68,68,0.5);
-      border-radius: 14px;
-      color: #fca5a5;
-      font-size: 0.82rem;
-      padding: 8px 14px;
-      margin-top: 10px;
-      text-align: center;
-      display: none;
+      background: rgba(239,68,68,0.25); border: 1px solid rgba(239,68,68,0.5);
+      border-radius: 14px; color: #fca5a5;
+      font-size: 0.82rem; padding: 8px 14px;
+      margin-top: 8px; text-align: center; display: none;
     }
     .loading-txt { color: #fff; font-size: 0.82rem; margin-top: 8px; text-align: center; display: none; }
 
     .link-admin {
-      position: absolute; bottom: 6px; right: 14px; z-index: 20;
+      position: fixed; bottom: 6px; right: 14px; z-index: 20;
       color: rgba(255,255,255,0.2); font-size: 0.65rem;
       text-decoration: none; font-family: 'Nunito', sans-serif;
     }
     .link-admin:hover { color: rgba(255,255,255,0.5); }
 
-    @keyframes floatY {
+    @keyframes flotar {
       0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-12px); }
     }
-    .rocket { animation: floatRocket 4s ease-in-out infinite; }
-    @keyframes floatRocket {
-      0%,100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
-      50% { transform: translateX(-50%) translateY(-10px) rotate(-5deg); }
+    @keyframes flotarCohete {
+      0%,100% { transform: translateX(-50%) translateY(0) rotate(-8deg); }
+      50% { transform: translateX(-50%) translateY(-12px) rotate(-8deg); }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg"></div>
+  <!-- CAPA 1: Fondo -->
+  <div class="fondo"></div>
 
-  <!-- Estrellas -->
-  <canvas id="stars" style="position:absolute;inset:0;z-index:1;pointer-events:none"></canvas>
-
-  <!-- Planetas -->
+  <!-- CAPA 2: Planetas reales del juego -->
   <img src="assets/Planeta_2.png" class="planeta-tl" alt="">
   <img src="assets/Planeta_3.png" class="planeta-tr" alt="">
-  <img src="assets/Planeta_1.png" class="planeta-br" alt="">
+  <img src="assets/planeta_morado.png" class="planeta-br" alt="">
 
-  <!-- Cohete -->
-  <div class="rocket">🚀</div>
+  <!-- Cohete real del juego -->
+  <img src="assets/cohete_vertical.PNG" class="cohete" alt="">
 
-  <!-- Título -->
-  <div class="titulo-wrap">
-    <div class="titulo">
-      <span class="mati-t">MATI</span>
-      <span class="evol-t">EVOLUCIÓN</span>
-    </div>
-  </div>
+  <!-- CAPA 3: Logo oficial del juego -->
+  <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
 
-  <!-- Subtítulo -->
-  <div class="subtitulo">¡La aventura matemática comienza!</div>
-
-  <!-- Mati personaje -->
+  <!-- CAPA 4: Mati personaje -->
   <img src="assets/mati_frente.PNG" class="mati" alt="">
 
-  <!-- Pasto -->
-  <div class="grass"></div>
+  <!-- CAPA 5: Pasto -->
+  <div class="pasto"></div>
 
-  <!-- Formulario -->
+  <!-- CAPA 6: Formulario -->
   <div class="form-wrap">
     <div class="input-wrap">
       <span class="input-icon">🔒</span>
@@ -249,19 +204,6 @@
   </div>
 
   <a href="admin.html" class="link-admin">Maestros</a>
-
-  <script>
-    const c = document.getElementById('stars');
-    c.width = window.innerWidth; c.height = window.innerHeight;
-    const ctx = c.getContext('2d');
-    for (let i = 0; i < 150; i++) {
-      const x = Math.random()*c.width, y = Math.random()*c.height;
-      const r = Math.random()*1.8+0.3;
-      ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
-      ctx.fillStyle = `rgba(255,255,255,${Math.random()*0.6+0.2})`;
-      ctx.fill();
-    }
-  </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
