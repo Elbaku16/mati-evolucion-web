@@ -10,124 +10,123 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
+      min-height: 100%;
       font-family: 'Nunito', sans-serif;
       background: #2e0d6e;
+      overflow-x: hidden;
     }
 
-    /* ── Fondo igual que el index ── */
+    /* ── Fondo igual al index ── */
     .fondo {
-      position: fixed; inset: 0; z-index: 1;
+      position: fixed; inset: 0; z-index: 0;
       background-image: url('assets/fondo_menu.JPG');
       background-size: cover;
       background-position: center bottom;
     }
-
-    /* ── Overlay sutil para que la card resalte ── */
     .overlay {
-      position: fixed; inset: 0; z-index: 2;
-      background: rgba(5, 0, 35, 0.45);
+      position: fixed; inset: 0; z-index: 1;
+      background: rgba(5, 0, 35, 0.52);
     }
 
-    /* ── Planeta azul: esquina sup-izq ── */
+    /* ── Planetas fijos en esquinas superiores ── */
     .planeta-tl {
       position: fixed;
-      top: clamp(10px, 2vh, 30px);
-      left: clamp(10px, 2vw, 30px);
-      width: clamp(130px, 14vw, 220px);
-      height: auto; z-index: 3;
-      filter: drop-shadow(0 8px 22px rgba(0,0,0,0.5));
+      top: clamp(8px, 1.5vh, 24px);
+      left: clamp(8px, 1.5vw, 24px);
+      width: clamp(100px, 12vw, 190px);
+      z-index: 2; height: auto;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
       animation: flotar 7s ease-in-out infinite;
     }
-
-    /* ── Planeta morado: esquina sup-der ── */
     .planeta-tr {
       position: fixed;
-      top: clamp(10px, 2vh, 30px);
-      right: clamp(10px, 2vw, 30px);
-      width: clamp(100px, 11vw, 180px);
-      height: auto; z-index: 3;
+      top: clamp(8px, 1.5vh, 24px);
+      right: clamp(8px, 1.5vw, 24px);
+      width: clamp(80px, 10vw, 160px);
+      z-index: 2; height: auto;
       filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
       animation: flotar 9s ease-in-out infinite reverse;
     }
 
-    /* ── Astronauta: inferior derecha, decorativo ── */
-    .astronauta {
+    /* ── Cohete: pequeño, esquina superior derecha, alejado del contenido ── */
+    .cohete {
       position: fixed;
-      bottom: 0;
-      right: clamp(20px, 5vw, 100px);
-      height: clamp(180px, 32vh, 320px);
-      width: auto; z-index: 3;
-      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.5));
-      animation: flotar 6s ease-in-out infinite;
+      top: clamp(10px, 2vh, 32px);
+      right: clamp(110px, 14vw, 210px);
+      width: clamp(38px, 3.5vw, 60px);
+      z-index: 2; height: auto;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.5));
+      animation: flotarCohete 4s ease-in-out infinite;
     }
 
-    /* ── Alien cool: inferior izquierda, decorativo ── */
-    .alien {
-      position: fixed;
-      bottom: clamp(10px, 3vh, 50px);
-      left: clamp(10px, 3vw, 60px);
-      height: clamp(100px, 18vh, 180px);
-      width: auto; z-index: 3;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.5));
-      animation: flotar 8s ease-in-out infinite reverse;
+    /* ── Contenido scrollable centrado ── */
+    .pagina {
+      position: relative; z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(80px, 12vh, 130px) 20px clamp(40px, 6vh, 80px);
+      gap: 18px;
     }
 
-    /* ── CARD — panel central ── */
-    .card {
-      position: fixed; z-index: 10;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: clamp(320px, 28vw, 400px);
-      max-height: 90vh;
-      overflow-y: auto;
-      background: rgba(6, 1, 42, 0.88);
-      border: 2px solid rgba(139,92,246,0.5);
-      border-radius: 28px;
-      padding: 30px 28px 34px;
+    /* ── Logo oficial arriba ── */
+    .logo {
+      width: clamp(200px, 30vw, 380px);
+      height: auto;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.7));
+    }
+
+    /* ── Sección "Zona de maestros" ── */
+    .seccion-titulo {
+      background: rgba(109, 40, 217, 0.45);
+      border: 2px solid rgba(167,139,250,0.4);
+      border-radius: 20px;
+      padding: 14px 32px;
       text-align: center;
-      box-shadow: 0 0 60px rgba(109,40,217,0.35), 0 20px 60px rgba(0,0,0,0.7);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(10px);
+      width: min(380px, 90vw);
     }
-    .card::-webkit-scrollbar { width: 4px; }
-    .card::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.4); border-radius: 4px; }
-
-    /* Logo dentro de la card */
-    .card-logo {
-      width: clamp(55px, 6vw, 80px);
-      margin-bottom: 10px;
-      filter: drop-shadow(0 4px 10px rgba(120,60,255,0.5));
-    }
-
-    .titulo {
+    .seccion-titulo h2 {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
       color: #fbbf24;
-      text-shadow: 0 0 16px #f59e0b, 2px 2px 0 #92400e;
-      margin-bottom: 2px;
+      text-shadow: 0 0 14px #f59e0b, 2px 2px 0 #92400e;
+      margin-bottom: 3px;
     }
-    .subtitulo {
-      color: #c4b5fd;
+    .seccion-titulo p {
+      color: #ddd6fe;
       font-size: 0.82rem;
-      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    /* ── Card del formulario / panel ── */
+    .card {
+      background: rgba(6, 1, 42, 0.90);
+      border: 2px solid rgba(139,92,246,0.45);
+      border-radius: 24px;
+      padding: 28px 26px 32px;
+      width: min(360px, 90vw);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 0 50px rgba(109,40,217,0.3), 0 16px 50px rgba(0,0,0,0.6);
     }
 
     label {
       display: block;
-      color: #e9d5ff;
-      font-size: 0.78rem;
+      color: #c4b5fd;
+      font-size: 0.75rem;
       font-weight: 900;
       margin-bottom: 5px;
-      text-align: left;
       text-transform: uppercase;
       letter-spacing: 0.8px;
     }
 
-    .input-wrap { position: relative; margin-bottom: 12px; }
+    .input-wrap { position: relative; margin-bottom: 16px; }
     .input-icon {
       position: absolute; left: 15px; top: 50%;
-      transform: translateY(-50%); font-size: 1rem; pointer-events: none;
+      transform: translateY(-50%);
+      font-size: 0.9rem; pointer-events: none;
     }
     input {
       width: 100%;
@@ -143,50 +142,59 @@
       transition: border 0.2s, background 0.2s;
     }
     input::placeholder { color: rgba(255,255,255,0.3); font-weight: 400; }
-    input:focus { border-color: #a78bfa; background: rgba(255,255,255,0.12); }
+    input:focus { border-color: #a78bfa; background: rgba(255,255,255,0.11); }
 
-    /* Botón principal — morado */
+    /* ── Botón amarillo/naranja: "Entrar al panel" ── */
     .btn-entrar {
       width: 100%; padding: 15px;
       border-radius: 50px; border: none;
-      background: linear-gradient(to bottom, #a78bfa, #7c3aed);
-      color: #fff; font-size: 1.15rem;
+      background: linear-gradient(to bottom, #fde047, #f59e0b);
+      color: #78350f; font-size: 1.15rem;
       font-family: 'Fredoka One', cursive;
       cursor: pointer;
-      box-shadow: 0 5px 0 #4c1d95, 0 8px 20px rgba(124,58,237,0.4);
+      box-shadow: 0 6px 0 #92400e, 0 10px 20px rgba(245,158,11,0.35);
       transition: transform 0.1s, box-shadow 0.1s;
-      margin-top: 8px;
+      margin-top: 6px;
     }
-    .btn-entrar:hover  { transform: translateY(-2px); box-shadow: 0 7px 0 #4c1d95; }
-    .btn-entrar:active { transform: translateY(3px);  box-shadow: 0 1px 0 #4c1d95; }
+    .btn-entrar:hover  { transform: translateY(-2px); box-shadow: 0 8px 0 #92400e; }
+    .btn-entrar:active { transform: translateY(3px);  box-shadow: 0 2px 0 #92400e; }
 
-    /* Botón verde */
+    .nota-acceso {
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.75rem;
+      margin-top: 12px;
+      font-weight: 700;
+    }
+
+    /* ── Botón verde ── */
     .btn-verde {
       width: 100%; padding: 13px; border-radius: 50px; border: none;
       background: linear-gradient(to bottom, #34d399, #059669);
       color: #fff; font-size: 1rem;
       font-family: 'Fredoka One', cursive;
       cursor: pointer; box-shadow: 0 4px 0 #065f46;
-      transition: transform 0.1s; margin-top: 6px;
+      transition: transform 0.1s; margin-top: 4px;
     }
     .btn-verde:hover  { transform: translateY(-2px); }
     .btn-verde:active { transform: translateY(2px); box-shadow: 0 1px 0 #065f46; }
 
-    /* Botón naranja (cambiar contraseña admin) */
+    /* ── Botón naranja (admin) ── */
     .btn-naranja {
       width: 100%; padding: 11px; border-radius: 50px; border: none;
       background: linear-gradient(to bottom, #fb923c, #ea580c);
       color: #fff; font-size: 0.95rem;
       font-family: 'Fredoka One', cursive;
       cursor: pointer; box-shadow: 0 4px 0 #9a3412;
-      transition: transform 0.1s; margin-top: 6px;
+      transition: transform 0.1s; margin-top: 4px;
     }
     .btn-naranja:hover  { transform: translateY(-2px); }
     .btn-naranja:active { transform: translateY(2px); box-shadow: 0 1px 0 #9a3412; }
 
-    /* Logout */
+    /* ── Botón logout ── */
     .btn-logout {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 20px; color: rgba(255,255,255,0.5);
       font-size: 0.72rem; padding: 5px 12px; cursor: pointer;
       font-family: 'Nunito', sans-serif; transition: color 0.2s;
@@ -196,12 +204,12 @@
     .error-box {
       background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.45);
       border-radius: 12px; color: #fca5a5; font-size: 0.8rem;
-      padding: 8px 14px; margin-top: 10px; display: none;
+      padding: 8px 14px; margin-top: 10px; display: none; text-align: center;
     }
     .ok-box {
       background: rgba(52,211,153,0.2); border: 1px solid rgba(52,211,153,0.45);
       border-radius: 12px; color: #6ee7b7; font-size: 0.8rem;
-      padding: 8px 14px; margin-top: 8px; display: none;
+      padding: 8px 14px; margin-top: 8px; display: none; text-align: center;
     }
 
     .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 18px 0; }
@@ -209,21 +217,27 @@
     .section-label {
       color: #c4b5fd; font-size: 0.68rem; font-weight: 900;
       text-transform: uppercase; letter-spacing: 1.5px;
-      text-align: left; margin-bottom: 6px;
+      margin-bottom: 6px;
     }
 
     .badge-clave {
-      background: rgba(109,40,217,0.2);
+      background: rgba(109,40,217,0.22);
       border: 1px solid rgba(139,92,246,0.4);
       border-radius: 12px; padding: 10px 14px;
-      color: #ddd6fe; font-size: 0.84rem; text-align: left; margin-bottom: 12px;
+      color: #ddd6fe; font-size: 0.84rem; margin-bottom: 14px;
     }
-    .badge-clave strong { color: #fde68a; font-size: 1rem; letter-spacing: 1px; }
+    .badge-clave strong { color: #fde68a; font-size: 1.05rem; letter-spacing: 1px; }
 
     .panel-header {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
+    .panel-titulo {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.25rem; color: #fbbf24;
+      text-shadow: 0 0 10px #f59e0b;
+    }
+    .panel-sub { color: #c4b5fd; font-size: 0.78rem; margin-bottom: 16px; }
 
     #panel-admin { display: none; }
     #panel-login { display: block; }
@@ -238,79 +252,96 @@
 
     @keyframes flotar {
       0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-14px); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes flotarCohete {
+      0%, 100% { transform: translateY(0) rotate(-18deg); }
+      50%       { transform: translateY(-10px) rotate(-18deg); }
     }
   </style>
 </head>
 <body>
 
+  <!-- Fondo: mismo que el index -->
   <div class="fondo"></div>
   <div class="overlay"></div>
 
-  <!-- Decoración espacial -->
-  <img src="assets/Planeta_2.png"    class="planeta-tl" alt="">
+  <!-- Planetas en esquinas superiores -->
+  <img src="assets/Planeta_2.png"      class="planeta-tl" alt="">
   <img src="assets/planeta_morado.png" class="planeta-tr" alt="">
-  <img src="assets/astronauta.PNG"   class="astronauta" alt="">
-  <img src="assets/alien_cool.PNG"   class="alien"      alt="">
 
-  <!-- Panel central -->
-  <div class="card">
+  <!-- Cohete pequeño y decorativo -->
+  <img src="assets/cohete_vertical.PNG" class="cohete" alt="">
 
-    <!-- ── LOGIN ── -->
-    <div id="panel-login">
-      <img src="assets/icono.png" class="card-logo" alt="Logo">
-      <div class="titulo">Zona de Maestros</div>
-      <div class="subtitulo">Acceso exclusivo para docentes</div>
+  <!-- Contenido vertical centrado -->
+  <div class="pagina">
 
-      <label>Usuario</label>
-      <div class="input-wrap">
-        <span class="input-icon">👤</span>
-        <input type="text" id="input-usuario" placeholder="Nombre de usuario" autocomplete="off">
-      </div>
+    <!-- 1. Logo oficial -->
+    <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
 
-      <label>Contraseña</label>
-      <div class="input-wrap">
-        <span class="input-icon">🔒</span>
-        <input type="password" id="input-admin" placeholder="Contraseña" autocomplete="off">
-      </div>
-
-      <button class="btn-entrar" onclick="loginAdmin()">Entrar al panel</button>
-      <div class="error-box" id="msg-login">Datos incorrectos. Intenta de nuevo.</div>
+    <!-- 2. Sección "Zona de maestros" -->
+    <div class="seccion-titulo">
+      <h2>Zona de maestros</h2>
+      <p>Administra tu aventura</p>
     </div>
 
-    <!-- ── PANEL ADMIN ── -->
-    <div id="panel-admin">
-      <div class="panel-header">
-        <div class="titulo" style="font-size:1.3rem">¡Hola, profe!</div>
-        <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    <!-- 3. Card del formulario -->
+    <div class="card">
+
+      <!-- LOGIN -->
+      <div id="panel-login">
+        <label>Usuario</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="input-usuario" placeholder="Nombre de usuario" autocomplete="off">
+        </div>
+
+        <label>Contraseña</label>
+        <div class="input-wrap" style="margin-bottom:0">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="input-admin" placeholder="Contraseña" autocomplete="off">
+        </div>
+
+        <button class="btn-entrar" onclick="loginAdmin()">Entrar al panel</button>
+        <div class="error-box" id="msg-login">Datos incorrectos. Intenta de nuevo.</div>
+        <div class="nota-acceso">Acceso exclusivo para docentes</div>
       </div>
-      <div class="subtitulo" style="margin-bottom:16px">Panel de administración</div>
 
-      <div class="section-label">Clave activa de los niños</div>
-      <div class="badge-clave">Clave: <strong id="clave-actual">cargando...</strong></div>
+      <!-- PANEL ADMIN -->
+      <div id="panel-admin">
+        <div class="panel-header">
+          <div class="panel-titulo">¡Hola, profe!</div>
+          <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+        </div>
+        <div class="panel-sub">Panel de administración</div>
 
-      <div class="section-label">Cambiar clave de los niños</div>
-      <div class="input-wrap">
-        <span class="input-icon">✏️</span>
-        <input type="text" id="nueva-clave-ninos" placeholder="Nueva clave" maxlength="20" autocomplete="off">
+        <div class="section-label">Clave activa de los niños</div>
+        <div class="badge-clave">Clave: <strong id="clave-actual">cargando...</strong></div>
+
+        <div class="section-label">Nueva clave para los niños</div>
+        <div class="input-wrap">
+          <span class="input-icon">✏️</span>
+          <input type="text" id="nueva-clave-ninos" placeholder="Nueva clave" maxlength="20" autocomplete="off">
+        </div>
+        <button class="btn-verde" onclick="cambiarClaveNinos()">Guardar nueva clave</button>
+        <div class="ok-box"    id="ok-ninos">¡Clave de niños actualizada!</div>
+        <div class="error-box" id="err-ninos">Error al actualizar.</div>
+
+        <div class="divider"></div>
+
+        <div class="section-label">Cambiar contraseña de administrador</div>
+        <div class="input-wrap">
+          <span class="input-icon">🔑</span>
+          <input type="text" id="nueva-clave-admin" placeholder="Nueva contraseña" maxlength="30" autocomplete="off">
+        </div>
+        <button class="btn-naranja" onclick="cambiarClaveAdmin()">Cambiar contraseña admin</button>
+        <div class="ok-box"    id="ok-admin">¡Contraseña actualizada!</div>
+        <div class="error-box" id="err-admin">Error al actualizar.</div>
       </div>
-      <button class="btn-verde" onclick="cambiarClaveNinos()">Guardar nueva clave</button>
-      <div class="ok-box"    id="ok-ninos">¡Clave de niños actualizada!</div>
-      <div class="error-box" id="err-ninos">Error al actualizar.</div>
 
-      <div class="divider"></div>
+    </div><!-- /card -->
 
-      <div class="section-label">Cambiar contraseña de administrador</div>
-      <div class="input-wrap">
-        <span class="input-icon">🔑</span>
-        <input type="text" id="nueva-clave-admin" placeholder="Nueva contraseña" maxlength="30" autocomplete="off">
-      </div>
-      <button class="btn-naranja" onclick="cambiarClaveAdmin()">Cambiar contraseña admin</button>
-      <div class="ok-box"    id="ok-admin">¡Contraseña actualizada!</div>
-      <div class="error-box" id="err-admin">Error al actualizar.</div>
-    </div>
-
-  </div>
+  </div><!-- /pagina -->
 
   <a href="index.html" class="back">← Volver al inicio</a>
 
@@ -336,6 +367,7 @@
       const usuario = document.getElementById('input-usuario').value.trim().toLowerCase();
       const pass    = document.getElementById('input-admin').value.trim();
       if (!usuario || !pass) return;
+      document.getElementById('msg-login').style.display = 'none';
       try {
         const snap = await get(ref(db, 'claves/admin'));
         if (usuario === USUARIO_FIJO && pass === snap.val()) {
