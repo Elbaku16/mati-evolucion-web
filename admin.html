@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zona de Maestros — Mati Evolución</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;900&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -16,7 +16,7 @@
       overflow-x: hidden;
     }
 
-    /* ── Fondo brillante, SIN overlay oscuro ── */
+    /* Fondo original del juego, sin filtros */
     .fondo {
       position: fixed; inset: 0; z-index: 0;
       background-image: url('assets/fondo_menu.JPG');
@@ -24,49 +24,48 @@
       background-position: center bottom;
     }
 
-    /* ── Planetas fijos en esquinas superiores ── */
+    /* Planeta azul — esquina superior izquierda */
     .planeta-tl {
       position: fixed;
-      top: clamp(8px, 1.5vh, 24px);
-      left: clamp(8px, 1.5vw, 24px);
-      width: clamp(100px, 12vw, 190px);
+      top: clamp(8px, 1.5vh, 20px);
+      left: clamp(8px, 1.5vw, 20px);
+      width: clamp(110px, 13vw, 200px);
       z-index: 2; height: auto;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
       animation: flotar 7s ease-in-out infinite;
     }
+
+    /* Planeta morado — esquina superior derecha, ligeramente desplazado */
     .planeta-tr {
       position: fixed;
-      top: clamp(8px, 1.5vh, 24px);
-      right: clamp(8px, 1.5vw, 24px);
-      width: clamp(80px, 10vw, 160px);
+      top: clamp(14px, 2.5vh, 36px);
+      right: clamp(8px, 1.5vw, 20px);
+      width: clamp(90px, 11vw, 165px);
       z-index: 2; height: auto;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.3));
       animation: flotar 9s ease-in-out infinite reverse;
     }
 
-    /* ── Cohete pequeño, lateral superior ── */
+    /* Cohete — lateral superior derecho, asimétrico */
     .cohete {
       position: fixed;
-      top: clamp(10px, 2vh, 30px);
-      right: clamp(110px, 14vw, 210px);
-      width: clamp(36px, 3.2vw, 55px);
+      top: clamp(60px, 10vh, 130px);
+      right: clamp(170px, 17vw, 280px);
+      width: clamp(34px, 2.8vw, 50px);
       z-index: 2; height: auto;
-      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.4));
-      animation: flotarCohete 4s ease-in-out infinite;
+      animation: flotarCohete 4.5s ease-in-out infinite;
     }
 
-    /* ── Mati decorativo en zona inferior lateral izquierda ── */
+    /* Mati — inferior izquierda, 20% más grande */
     .mati-deco {
       position: fixed;
-      bottom: clamp(30px, 5vh, 70px);
-      left: clamp(10px, 3vw, 50px);
-      height: clamp(120px, 20vh, 200px);
+      bottom: clamp(28px, 4vh, 60px);
+      left: clamp(10px, 2.5vw, 40px);
+      height: clamp(145px, 24vh, 240px);
       width: auto; z-index: 2;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.4));
-      animation: flotar 5s ease-in-out infinite;
+      filter: drop-shadow(2px 6px 10px rgba(0,0,0,0.35));
+      animation: flotar 5.5s ease-in-out infinite;
     }
 
-    /* ── Contenido scrollable centrado ── */
+    /* Contenido centrado */
     .pagina {
       position: relative; z-index: 10;
       min-height: 100vh;
@@ -74,248 +73,224 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: clamp(70px, 10vh, 110px) 20px clamp(40px, 6vh, 80px);
-      gap: 16px;
+      padding: clamp(60px, 9vh, 100px) 20px clamp(40px, 6vh, 70px);
+      gap: 14px;
     }
 
-    /* ── Logo oficial: 25% más pequeño ── */
+    /* Logo oficial */
     .logo {
-      width: clamp(160px, 22vw, 285px);
+      width: clamp(160px, 22vw, 280px);
       height: auto;
-      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+      filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5));
     }
 
-    /* ── UNA SOLA CARD con todo el contenido ── */
+    /* Tarjeta principal — sólida, integrada al universo del juego */
     .card {
-      background: rgba(55, 15, 110, 0.82);
-      border: 2px solid rgba(167, 139, 250, 0.55);
-      border-radius: 28px;
-      padding: 32px 32px 36px;
-      width: clamp(320px, 42vw, 480px);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 0 60px rgba(109,40,217,0.4), 0 20px 60px rgba(0,0,0,0.5);
+      background: rgba(38, 8, 85, 0.91);
+      border: 1px solid rgba(140, 100, 220, 0.4);
+      border-radius: 20px;
+      padding: 30px 30px 34px;
+      width: clamp(300px, 40vw, 460px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
       text-align: center;
-    }
-
-    /* Astronauta (personaje docente) dentro de la card */
-    .astronauta-card {
-      width: clamp(60px, 7vw, 90px);
-      height: auto;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-      animation: flotar 6s ease-in-out infinite;
     }
 
     .card-titulo {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(1.4rem, 2.2vw, 1.8rem);
-      color: #fbbf24;
-      text-shadow: 0 0 14px #f59e0b, 2px 2px 0 #92400e;
-      margin-bottom: 4px;
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      color: #f8d64e;
+      margin-bottom: 3px;
     }
     .card-sub {
-      color: #ddd6fe;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 24px;
+      color: #c4b5fd;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 22px;
     }
 
-    /* Formulario */
+    /* Etiquetas de campo */
     label {
       display: block;
-      color: #c4b5fd;
-      font-size: 0.74rem;
-      font-weight: 900;
-      margin-bottom: 6px;
+      color: #a78bfa;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 5px;
       text-align: left;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
     }
 
-    .input-wrap { position: relative; margin-bottom: 18px; }
-    .input-wrap:last-of-type { margin-bottom: 0; }
+    .input-wrap { position: relative; margin-bottom: 16px; }
     .input-icon {
-      position: absolute; left: 15px; top: 50%;
+      position: absolute; left: 13px; top: 50%;
       transform: translateY(-50%);
-      font-size: 0.9rem; pointer-events: none;
+      font-size: 0.8rem; pointer-events: none; opacity: 0.6;
     }
     input {
       width: 100%;
-      padding: 14px 14px 14px 44px;
-      border-radius: 50px;
-      border: 2px solid rgba(167,139,250,0.35);
-      background: rgba(109, 40, 217, 0.22);
+      padding: 12px 12px 12px 38px;
+      border-radius: 12px;
+      border: 1px solid rgba(140,100,220,0.4);
+      background: rgba(60, 20, 120, 0.4);
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-family: 'Nunito', sans-serif;
-      font-weight: 700;
+      font-weight: 600;
       outline: none;
-      transition: border 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s;
     }
-    input::placeholder { color: rgba(255,255,255,0.35); font-weight: 400; }
-    input:focus { border-color: #c4b5fd; background: rgba(139,92,246,0.3); }
+    input::placeholder { color: rgba(255,255,255,0.3); font-weight: 400; }
+    input:focus { border-color: rgba(167,139,250,0.7); background: rgba(80,30,150,0.45); }
 
-    /* Botón amarillo/naranja principal */
+    /* Botón principal — amarillo/naranja limpio */
     .btn-entrar {
-      width: 100%; padding: 15px;
-      border-radius: 50px; border: none;
-      background: linear-gradient(to bottom, #fde047, #f59e0b);
-      color: #78350f; font-size: 1.15rem;
+      width: 100%; padding: 13px;
+      border-radius: 12px; border: none;
+      background: linear-gradient(to bottom, #fcd34d, #f59e0b);
+      color: #78350f; font-size: 1.05rem;
       font-family: 'Fredoka One', cursive;
       cursor: pointer;
-      box-shadow: 0 6px 0 #92400e, 0 10px 20px rgba(245,158,11,0.35);
+      box-shadow: 0 4px 0 #b45309;
       transition: transform 0.1s, box-shadow 0.1s;
-      margin-top: 20px;
+      margin-top: 18px;
     }
-    .btn-entrar:hover  { transform: translateY(-2px); box-shadow: 0 8px 0 #92400e; }
-    .btn-entrar:active { transform: translateY(3px);  box-shadow: 0 2px 0 #92400e; }
+    .btn-entrar:hover  { transform: translateY(-1px); box-shadow: 0 5px 0 #b45309; }
+    .btn-entrar:active { transform: translateY(2px);  box-shadow: 0 1px 0 #b45309; }
 
     .nota-acceso {
-      color: rgba(255,255,255,0.4);
-      font-size: 0.74rem;
-      margin-top: 12px;
-      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.72rem;
+      margin-top: 10px;
+      font-weight: 600;
     }
 
-    /* Botón verde */
+    /* Botones secundarios */
     .btn-verde {
-      width: 100%; padding: 13px; border-radius: 50px; border: none;
+      width: 100%; padding: 11px; border-radius: 12px; border: none;
       background: linear-gradient(to bottom, #34d399, #059669);
-      color: #fff; font-size: 1rem;
+      color: #fff; font-size: 0.9rem;
       font-family: 'Fredoka One', cursive;
-      cursor: pointer; box-shadow: 0 4px 0 #065f46;
+      cursor: pointer; box-shadow: 0 3px 0 #065f46;
       transition: transform 0.1s; margin-top: 4px;
     }
-    .btn-verde:hover  { transform: translateY(-2px); }
-    .btn-verde:active { transform: translateY(2px); box-shadow: 0 1px 0 #065f46; }
+    .btn-verde:hover  { transform: translateY(-1px); }
+    .btn-verde:active { transform: translateY(2px); box-shadow: 0 0px 0 #065f46; }
 
-    /* Botón naranja admin */
     .btn-naranja {
-      width: 100%; padding: 11px; border-radius: 50px; border: none;
+      width: 100%; padding: 11px; border-radius: 12px; border: none;
       background: linear-gradient(to bottom, #fb923c, #ea580c);
-      color: #fff; font-size: 0.95rem;
+      color: #fff; font-size: 0.9rem;
       font-family: 'Fredoka One', cursive;
-      cursor: pointer; box-shadow: 0 4px 0 #9a3412;
+      cursor: pointer; box-shadow: 0 3px 0 #9a3412;
       transition: transform 0.1s; margin-top: 4px;
     }
-    .btn-naranja:hover  { transform: translateY(-2px); }
-    .btn-naranja:active { transform: translateY(2px); box-shadow: 0 1px 0 #9a3412; }
+    .btn-naranja:hover  { transform: translateY(-1px); }
+    .btn-naranja:active { transform: translateY(2px); box-shadow: 0 0px 0 #9a3412; }
 
     .btn-logout {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 20px; color: rgba(255,255,255,0.55);
-      font-size: 0.72rem; padding: 5px 12px; cursor: pointer;
-      font-family: 'Nunito', sans-serif; transition: color 0.2s;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px; color: rgba(255,255,255,0.4);
+      font-size: 0.7rem; padding: 4px 10px; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: color 0.2s, border-color 0.2s;
     }
-    .btn-logout:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+    .btn-logout:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.4); }
 
+    /* Mensajes */
     .error-box {
-      background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.5);
-      border-radius: 12px; color: #fca5a5; font-size: 0.8rem;
-      padding: 8px 14px; margin-top: 12px; display: none; text-align: center;
+      background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4);
+      border-radius: 10px; color: #fca5a5; font-size: 0.78rem;
+      padding: 7px 12px; margin-top: 10px; display: none; text-align: center;
     }
     .ok-box {
-      background: rgba(52,211,153,0.2); border: 1px solid rgba(52,211,153,0.5);
-      border-radius: 12px; color: #6ee7b7; font-size: 0.8rem;
-      padding: 8px 14px; margin-top: 8px; display: none; text-align: center;
+      background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.4);
+      border-radius: 10px; color: #6ee7b7; font-size: 0.78rem;
+      padding: 7px 12px; margin-top: 7px; display: none; text-align: center;
     }
 
-    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 18px 0; }
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0; }
 
     .section-label {
-      color: #c4b5fd; font-size: 0.68rem; font-weight: 900;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      text-align: left; margin-bottom: 6px;
+      color: #a78bfa; font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      text-align: left; margin-bottom: 5px;
     }
 
     .badge-clave {
-      background: rgba(109,40,217,0.3);
-      border: 1px solid rgba(167,139,250,0.4);
-      border-radius: 12px; padding: 10px 16px;
-      color: #ddd6fe; font-size: 0.84rem; text-align: left; margin-bottom: 14px;
+      background: rgba(60,20,110,0.5);
+      border: 1px solid rgba(140,100,220,0.3);
+      border-radius: 10px; padding: 9px 14px;
+      color: #ddd6fe; font-size: 0.82rem; text-align: left; margin-bottom: 12px;
     }
-    .badge-clave strong { color: #fde68a; font-size: 1.05rem; letter-spacing: 1px; }
+    .badge-clave strong { color: #fde68a; letter-spacing: 1px; }
 
     .panel-header {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .panel-titulo {
       font-family: 'Fredoka One', cursive;
-      font-size: 1.25rem; color: #fbbf24;
-      text-shadow: 0 0 10px #f59e0b;
+      font-size: 1.2rem; color: #f8d64e;
       text-align: left;
     }
-    .panel-sub { color: #c4b5fd; font-size: 0.78rem; margin-bottom: 16px; text-align: left; }
+    .panel-sub { color: #a78bfa; font-size: 0.76rem; margin-bottom: 14px; text-align: left; }
 
     #panel-admin { display: none; }
     #panel-login { display: block; }
 
     .back {
       position: fixed; bottom: 10px; left: 14px; z-index: 20;
-      color: rgba(255,255,255,0.3); font-size: 0.7rem;
+      color: rgba(255,255,255,0.25); font-size: 0.68rem;
       text-decoration: none; font-family: 'Nunito', sans-serif;
       transition: color 0.2s;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
     }
-    .back:hover { color: rgba(255,255,255,0.7); }
+    .back:hover { color: rgba(255,255,255,0.6); }
 
     @keyframes flotar {
       0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-12px); }
+      50%       { transform: translateY(-10px); }
     }
     @keyframes flotarCohete {
       0%, 100% { transform: translateY(0) rotate(-18deg); }
-      50%       { transform: translateY(-10px) rotate(-18deg); }
+      50%       { transform: translateY(-8px) rotate(-18deg); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Fondo SIN overlay oscuro — colores originales del juego -->
   <div class="fondo"></div>
 
-  <!-- Planetas en esquinas superiores -->
   <img src="assets/Planeta_2.png"       class="planeta-tl" alt="">
   <img src="assets/planeta_morado.png"  class="planeta-tr" alt="">
+  <img src="assets/cohete_vertical.PNG" class="cohete"     alt="">
+  <img src="assets/mati_quieto.PNG"     class="mati-deco"  alt="">
 
-  <!-- Cohete pequeño y decorativo -->
-  <img src="assets/cohete_vertical.PNG" class="cohete" alt="">
-
-  <!-- Mati decorativo inferior izquierda -->
-  <img src="assets/mati_quieto.PNG"     class="mati-deco" alt="">
-
-  <!-- Contenido vertical centrado -->
   <div class="pagina">
 
-    <!-- Logo oficial, 25% más pequeño -->
     <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
 
-    <!-- UNA SOLA CARD con todo -->
     <div class="card">
 
-      <!-- LOGIN -->
+      <!-- PANEL LOGIN -->
       <div id="panel-login">
-        <img src="assets/astronauta.PNG" class="astronauta-card" alt="Maestro">
         <div class="card-titulo">Zona de maestros</div>
-        <div class="card-sub">Administra tu aventura</div>
+        <div class="card-sub">Acceso exclusivo para docentes</div>
 
         <label>Usuario</label>
         <div class="input-wrap">
-          <span class="input-icon">👤</span>
+          <span class="input-icon">▸</span>
           <input type="text" id="input-usuario" placeholder="Nombre de usuario" autocomplete="off">
         </div>
 
         <label>Contraseña</label>
         <div class="input-wrap">
-          <span class="input-icon">🔒</span>
+          <span class="input-icon">▸</span>
           <input type="password" id="input-admin" placeholder="Contraseña" autocomplete="off">
         </div>
 
         <button class="btn-entrar" onclick="loginAdmin()">Entrar al panel</button>
         <div class="error-box" id="msg-login">Datos incorrectos. Intenta de nuevo.</div>
-        <div class="nota-acceso">Acceso exclusivo para docentes</div>
+        <div class="nota-acceso">Solo para el/la maestra responsable del grupo</div>
       </div>
 
       <!-- PANEL ADMIN -->
@@ -331,7 +306,7 @@
 
         <div class="section-label">Nueva clave para los niños</div>
         <div class="input-wrap">
-          <span class="input-icon">✏️</span>
+          <span class="input-icon">▸</span>
           <input type="text" id="nueva-clave-ninos" placeholder="Nueva clave" maxlength="20" autocomplete="off">
         </div>
         <button class="btn-verde" onclick="cambiarClaveNinos()">Guardar nueva clave</button>
@@ -342,7 +317,7 @@
 
         <div class="section-label">Cambiar contraseña de administrador</div>
         <div class="input-wrap">
-          <span class="input-icon">🔑</span>
+          <span class="input-icon">▸</span>
           <input type="text" id="nueva-clave-admin" placeholder="Nueva contraseña" maxlength="30" autocomplete="off">
         </div>
         <button class="btn-naranja" onclick="cambiarClaveAdmin()">Cambiar contraseña admin</button>
