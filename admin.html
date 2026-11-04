@@ -9,92 +9,132 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      min-height: 100vh;
-      background: #0d062e;
-      font-family: 'Nunito', sans-serif;
+    html, body {
+      width: 100%; height: 100%;
       overflow: hidden;
-      position: relative;
+      font-family: 'Nunito', sans-serif;
+      background: #2e0d6e;
     }
 
-    .bg {
-      position: fixed; inset: 0;
-      background-image: url('assets/Fondo.png');
+    /* ── Fondo igual que el index ── */
+    .fondo {
+      position: fixed; inset: 0; z-index: 1;
+      background-image: url('assets/fondo_menu.JPG');
       background-size: cover;
-      background-position: center;
-      z-index: 0;
-    }
-    .bg-overlay {
-      position: fixed; inset: 0;
-      background: rgba(5, 0, 40, 0.55);
-      z-index: 1;
+      background-position: center bottom;
     }
 
-    /* Astronauta decorativo */
+    /* ── Overlay sutil para que la card resalte ── */
+    .overlay {
+      position: fixed; inset: 0; z-index: 2;
+      background: rgba(5, 0, 35, 0.45);
+    }
+
+    /* ── Planeta azul: esquina sup-izq ── */
+    .planeta-tl {
+      position: fixed;
+      top: clamp(10px, 2vh, 30px);
+      left: clamp(10px, 2vw, 30px);
+      width: clamp(130px, 14vw, 220px);
+      height: auto; z-index: 3;
+      filter: drop-shadow(0 8px 22px rgba(0,0,0,0.5));
+      animation: flotar 7s ease-in-out infinite;
+    }
+
+    /* ── Planeta morado: esquina sup-der ── */
+    .planeta-tr {
+      position: fixed;
+      top: clamp(10px, 2vh, 30px);
+      right: clamp(10px, 2vw, 30px);
+      width: clamp(100px, 11vw, 180px);
+      height: auto; z-index: 3;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
+      animation: flotar 9s ease-in-out infinite reverse;
+    }
+
+    /* ── Astronauta: inferior derecha, decorativo ── */
     .astronauta {
-      position: fixed; z-index: 3;
-      width: 200px; bottom: 0; right: 5%;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
-      animation: floatY 6s ease-in-out infinite;
+      position: fixed;
+      bottom: 0;
+      right: clamp(20px, 5vw, 100px);
+      height: clamp(180px, 32vh, 320px);
+      width: auto; z-index: 3;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.5));
+      animation: flotar 6s ease-in-out infinite;
     }
 
-    /* Alien decorativo */
-    .alien-deco {
-      position: fixed; z-index: 3;
-      width: 100px; top: 8%; left: 3%;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
-      animation: floatY 7s ease-in-out infinite reverse;
+    /* ── Alien cool: inferior izquierda, decorativo ── */
+    .alien {
+      position: fixed;
+      bottom: clamp(10px, 3vh, 50px);
+      left: clamp(10px, 3vw, 60px);
+      height: clamp(100px, 18vh, 180px);
+      width: auto; z-index: 3;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.5));
+      animation: flotar 8s ease-in-out infinite reverse;
     }
 
-    /* Planeta */
-    .planeta-deco {
-      position: fixed; z-index: 2;
-      width: 110px; top: -10px; right: 22%;
-      opacity: 0.75;
-      animation: floatY 9s ease-in-out infinite;
-    }
-
-    @keyframes floatY {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    /* Card — LOGIN */
+    /* ── CARD — panel central ── */
     .card {
       position: fixed; z-index: 10;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 340px;
-      background: rgba(8, 2, 50, 0.85);
-      border: 2px solid rgba(99,102,241,0.45);
+      width: clamp(320px, 28vw, 400px);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: rgba(6, 1, 42, 0.88);
+      border: 2px solid rgba(139,92,246,0.5);
       border-radius: 28px;
-      padding: 32px 30px 36px;
+      padding: 30px 28px 34px;
       text-align: center;
-      box-shadow: 0 0 80px rgba(79,70,229,0.3), 0 24px 60px rgba(0,0,0,0.7);
-      backdrop-filter: blur(14px);
+      box-shadow: 0 0 60px rgba(109,40,217,0.35), 0 20px 60px rgba(0,0,0,0.7);
+      backdrop-filter: blur(16px);
     }
+    .card::-webkit-scrollbar { width: 4px; }
+    .card::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.4); border-radius: 4px; }
 
-    .logo-img { width: 70px; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(120,60,255,0.5)); }
+    /* Logo dentro de la card */
+    .card-logo {
+      width: clamp(55px, 6vw, 80px);
+      margin-bottom: 10px;
+      filter: drop-shadow(0 4px 10px rgba(120,60,255,0.5));
+    }
 
     .titulo {
       font-family: 'Fredoka One', cursive;
-      font-size: 1.7rem;
+      font-size: clamp(1.4rem, 2vw, 1.8rem);
       color: #fbbf24;
       text-shadow: 0 0 16px #f59e0b, 2px 2px 0 #92400e;
       margin-bottom: 2px;
     }
-    .subtitulo { color: #a5b4fc; font-size: 0.8rem; margin-bottom: 22px; }
+    .subtitulo {
+      color: #c4b5fd;
+      font-size: 0.82rem;
+      margin-bottom: 20px;
+    }
 
-    label { display: block; color: #e9d5ff; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; text-align: left; }
+    label {
+      display: block;
+      color: #e9d5ff;
+      font-size: 0.78rem;
+      font-weight: 900;
+      margin-bottom: 5px;
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
 
     .input-wrap { position: relative; margin-bottom: 12px; }
-    .input-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 1rem; pointer-events: none; }
+    .input-icon {
+      position: absolute; left: 15px; top: 50%;
+      transform: translateY(-50%); font-size: 1rem; pointer-events: none;
+    }
     input {
       width: 100%;
       padding: 13px 14px 13px 44px;
       border-radius: 50px;
-      border: 2px solid rgba(99,102,241,0.4);
-      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(139,92,246,0.4);
+      background: rgba(255,255,255,0.07);
       color: #fff;
       font-size: 0.95rem;
       font-family: 'Nunito', sans-serif;
@@ -102,53 +142,25 @@
       outline: none;
       transition: border 0.2s, background 0.2s;
     }
-    input::placeholder { color: rgba(255,255,255,0.28); font-weight: 400; }
-    input:focus { border-color: #6366f1; background: rgba(255,255,255,0.13); }
+    input::placeholder { color: rgba(255,255,255,0.3); font-weight: 400; }
+    input:focus { border-color: #a78bfa; background: rgba(255,255,255,0.12); }
 
+    /* Botón principal — morado */
     .btn-entrar {
       width: 100%; padding: 15px;
       border-radius: 50px; border: none;
-      background: linear-gradient(to bottom, #818cf8, #4f46e5);
+      background: linear-gradient(to bottom, #a78bfa, #7c3aed);
       color: #fff; font-size: 1.15rem;
       font-family: 'Fredoka One', cursive;
       cursor: pointer;
-      box-shadow: 0 5px 0 #3730a3, 0 8px 20px rgba(79,70,229,0.4);
+      box-shadow: 0 5px 0 #4c1d95, 0 8px 20px rgba(124,58,237,0.4);
       transition: transform 0.1s, box-shadow 0.1s;
       margin-top: 8px;
     }
-    .btn-entrar:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #3730a3; }
-    .btn-entrar:active { transform: translateY(3px); box-shadow: 0 1px 0 #3730a3; }
+    .btn-entrar:hover  { transform: translateY(-2px); box-shadow: 0 7px 0 #4c1d95; }
+    .btn-entrar:active { transform: translateY(3px);  box-shadow: 0 1px 0 #4c1d95; }
 
-    .error-box { background: rgba(239,68,68,0.18); border: 1px solid rgba(239,68,68,0.4); border-radius: 12px; color: #fca5a5; font-size: 0.8rem; padding: 8px 14px; margin-top: 10px; display: none; }
-    .ok-box { background: rgba(52,211,153,0.18); border: 1px solid rgba(52,211,153,0.4); border-radius: 12px; color: #6ee7b7; font-size: 0.8rem; padding: 8px 14px; margin-top: 8px; display: none; }
-
-    /* PANEL ADMIN */
-    #panel-admin { display: none; }
-    #panel-login { display: block; }
-
-    .panel-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 4px;
-    }
-    .btn-logout {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 20px; color: rgba(255,255,255,0.5);
-      font-size: 0.7rem; padding: 4px 10px; cursor: pointer;
-      font-family: 'Nunito', sans-serif;
-    }
-    .btn-logout:hover { color: #fff; }
-
-    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 18px 0; }
-    .section-label { color: #a5b4fc; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; text-align: left; margin-bottom: 6px; }
-
-    .badge-clave {
-      background: rgba(99,102,241,0.18);
-      border: 1px solid rgba(99,102,241,0.35);
-      border-radius: 12px; padding: 9px 14px;
-      color: #c7d2fe; font-size: 0.82rem; text-align: left; margin-bottom: 12px;
-    }
-    .badge-clave strong { color: #fde68a; }
-
+    /* Botón verde */
     .btn-verde {
       width: 100%; padding: 13px; border-radius: 50px; border: none;
       background: linear-gradient(to bottom, #34d399, #059669);
@@ -157,38 +169,98 @@
       cursor: pointer; box-shadow: 0 4px 0 #065f46;
       transition: transform 0.1s; margin-top: 6px;
     }
+    .btn-verde:hover  { transform: translateY(-2px); }
     .btn-verde:active { transform: translateY(2px); box-shadow: 0 1px 0 #065f46; }
 
-    .btn-rojo {
+    /* Botón naranja (cambiar contraseña admin) */
+    .btn-naranja {
       width: 100%; padding: 11px; border-radius: 50px; border: none;
-      background: linear-gradient(to bottom, #f87171, #dc2626);
+      background: linear-gradient(to bottom, #fb923c, #ea580c);
       color: #fff; font-size: 0.95rem;
       font-family: 'Fredoka One', cursive;
-      cursor: pointer; box-shadow: 0 4px 0 #991b1b;
+      cursor: pointer; box-shadow: 0 4px 0 #9a3412;
       transition: transform 0.1s; margin-top: 6px;
     }
-    .btn-rojo:active { transform: translateY(2px); box-shadow: 0 1px 0 #991b1b; }
+    .btn-naranja:hover  { transform: translateY(-2px); }
+    .btn-naranja:active { transform: translateY(2px); box-shadow: 0 1px 0 #9a3412; }
 
-    .back { position: fixed; bottom: 10px; left: 14px; z-index: 20; color: rgba(255,255,255,0.22); font-size: 0.7rem; text-decoration: none; font-family: 'Nunito', sans-serif; }
+    /* Logout */
+    .btn-logout {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px; color: rgba(255,255,255,0.5);
+      font-size: 0.72rem; padding: 5px 12px; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: color 0.2s;
+    }
+    .btn-logout:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    .error-box {
+      background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.45);
+      border-radius: 12px; color: #fca5a5; font-size: 0.8rem;
+      padding: 8px 14px; margin-top: 10px; display: none;
+    }
+    .ok-box {
+      background: rgba(52,211,153,0.2); border: 1px solid rgba(52,211,153,0.45);
+      border-radius: 12px; color: #6ee7b7; font-size: 0.8rem;
+      padding: 8px 14px; margin-top: 8px; display: none;
+    }
+
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 18px 0; }
+
+    .section-label {
+      color: #c4b5fd; font-size: 0.68rem; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      text-align: left; margin-bottom: 6px;
+    }
+
+    .badge-clave {
+      background: rgba(109,40,217,0.2);
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 12px; padding: 10px 14px;
+      color: #ddd6fe; font-size: 0.84rem; text-align: left; margin-bottom: 12px;
+    }
+    .badge-clave strong { color: #fde68a; font-size: 1rem; letter-spacing: 1px; }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    #panel-admin { display: none; }
+    #panel-login { display: block; }
+
+    .back {
+      position: fixed; bottom: 10px; left: 14px; z-index: 20;
+      color: rgba(255,255,255,0.22); font-size: 0.7rem;
+      text-decoration: none; font-family: 'Nunito', sans-serif;
+      transition: color 0.2s;
+    }
     .back:hover { color: rgba(255,255,255,0.6); }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-14px); }
+    }
   </style>
 </head>
 <body>
 
-  <div class="bg"></div>
-  <div class="bg-overlay"></div>
+  <div class="fondo"></div>
+  <div class="overlay"></div>
 
-  <img src="assets/Planeta_2.png" class="planeta-deco" alt="">
-  <img src="assets/astronauta.PNG" class="astronauta" alt="">
-  <img src="assets/alien_cool.PNG" class="alien-deco" alt="">
+  <!-- Decoración espacial -->
+  <img src="assets/Planeta_2.png"    class="planeta-tl" alt="">
+  <img src="assets/planeta_morado.png" class="planeta-tr" alt="">
+  <img src="assets/astronauta.PNG"   class="astronauta" alt="">
+  <img src="assets/alien_cool.PNG"   class="alien"      alt="">
 
+  <!-- Panel central -->
   <div class="card">
 
-    <!-- LOGIN -->
+    <!-- ── LOGIN ── -->
     <div id="panel-login">
-      <img src="assets/icono.png" class="logo-img" alt="Logo">
+      <img src="assets/icono.png" class="card-logo" alt="Logo">
       <div class="titulo">Zona de Maestros</div>
-      <div class="subtitulo">Administra tu aventura</div>
+      <div class="subtitulo">Acceso exclusivo para docentes</div>
 
       <label>Usuario</label>
       <div class="input-wrap">
@@ -204,27 +276,26 @@
 
       <button class="btn-entrar" onclick="loginAdmin()">Entrar al panel</button>
       <div class="error-box" id="msg-login">Datos incorrectos. Intenta de nuevo.</div>
-      <div class="subtitulo" style="margin-top:12px;margin-bottom:0;">Acceso exclusivo para docentes</div>
     </div>
 
-    <!-- PANEL -->
+    <!-- ── PANEL ADMIN ── -->
     <div id="panel-admin">
       <div class="panel-header">
-        <div class="titulo" style="font-size:1.2rem">¡Hola, profe! 👋</div>
-        <button class="btn-logout" onclick="logout()">Salir</button>
+        <div class="titulo" style="font-size:1.3rem">¡Hola, profe!</div>
+        <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
       </div>
-      <div class="subtitulo" style="margin-bottom:14px">Panel de administración</div>
+      <div class="subtitulo" style="margin-bottom:16px">Panel de administración</div>
 
-      <div class="section-label">Clave actual de los niños</div>
-      <div class="badge-clave">Clave activa: <strong id="clave-actual">cargando...</strong></div>
+      <div class="section-label">Clave activa de los niños</div>
+      <div class="badge-clave">Clave: <strong id="clave-actual">cargando...</strong></div>
 
-      <div class="section-label">Nueva clave para los niños</div>
+      <div class="section-label">Cambiar clave de los niños</div>
       <div class="input-wrap">
         <span class="input-icon">✏️</span>
         <input type="text" id="nueva-clave-ninos" placeholder="Nueva clave" maxlength="20" autocomplete="off">
       </div>
       <button class="btn-verde" onclick="cambiarClaveNinos()">Guardar nueva clave</button>
-      <div class="ok-box" id="ok-ninos">¡Clave actualizada!</div>
+      <div class="ok-box"    id="ok-ninos">¡Clave de niños actualizada!</div>
       <div class="error-box" id="err-ninos">Error al actualizar.</div>
 
       <div class="divider"></div>
@@ -232,16 +303,16 @@
       <div class="section-label">Cambiar contraseña de administrador</div>
       <div class="input-wrap">
         <span class="input-icon">🔑</span>
-        <input type="text" id="nueva-clave-admin" placeholder="Nueva contraseña admin" maxlength="30" autocomplete="off">
+        <input type="text" id="nueva-clave-admin" placeholder="Nueva contraseña" maxlength="30" autocomplete="off">
       </div>
-      <button class="btn-rojo" onclick="cambiarClaveAdmin()">Cambiar contraseña admin</button>
-      <div class="ok-box" id="ok-admin">¡Contraseña actualizada!</div>
+      <button class="btn-naranja" onclick="cambiarClaveAdmin()">Cambiar contraseña admin</button>
+      <div class="ok-box"    id="ok-admin">¡Contraseña actualizada!</div>
       <div class="error-box" id="err-admin">Error al actualizar.</div>
     </div>
 
   </div>
 
-  <a href="index.html" class="back">← Volver al juego</a>
+  <a href="index.html" class="back">← Volver al inicio</a>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -258,21 +329,25 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
+    const db  = getDatabase(app);
     const USUARIO_FIJO = "profe";
 
     window.loginAdmin = async function() {
       const usuario = document.getElementById('input-usuario').value.trim().toLowerCase();
-      const pass = document.getElementById('input-admin').value.trim();
+      const pass    = document.getElementById('input-admin').value.trim();
       if (!usuario || !pass) return;
-      const snap = await get(ref(db, 'claves/admin'));
-      if (usuario === USUARIO_FIJO && pass === snap.val()) {
-        document.getElementById('panel-login').style.display = 'none';
-        document.getElementById('panel-admin').style.display = 'block';
-        const snapN = await get(ref(db, 'claves/ninos'));
-        document.getElementById('clave-actual').textContent = snapN.val() || '(no configurada)';
-      } else {
+      try {
+        const snap = await get(ref(db, 'claves/admin'));
+        if (usuario === USUARIO_FIJO && pass === snap.val()) {
+          document.getElementById('panel-login').style.display = 'none';
+          document.getElementById('panel-admin').style.display = 'block';
+          const snapN = await get(ref(db, 'claves/ninos'));
+          document.getElementById('clave-actual').textContent = snapN.val() || '(no configurada)';
+        } else {
+          document.getElementById('msg-login').style.display = 'block';
+        }
+      } catch {
+        document.getElementById('msg-login').textContent = 'Error de conexión.';
         document.getElementById('msg-login').style.display = 'block';
       }
     };
@@ -281,7 +356,8 @@
       document.getElementById('panel-login').style.display = 'block';
       document.getElementById('panel-admin').style.display = 'none';
       document.getElementById('input-usuario').value = '';
-      document.getElementById('input-admin').value = '';
+      document.getElementById('input-admin').value   = '';
+      document.getElementById('msg-login').style.display = 'none';
     };
 
     window.cambiarClaveNinos = async function() {
@@ -290,8 +366,8 @@
       try {
         await set(ref(db, 'claves/ninos'), nueva);
         document.getElementById('clave-actual').textContent = nueva;
-        document.getElementById('nueva-clave-ninos').value = '';
-        document.getElementById('ok-ninos').style.display = 'block';
+        document.getElementById('nueva-clave-ninos').value  = '';
+        document.getElementById('ok-ninos').style.display   = 'block';
         setTimeout(() => document.getElementById('ok-ninos').style.display = 'none', 3000);
       } catch { document.getElementById('err-ninos').style.display = 'block'; }
     };
@@ -302,7 +378,7 @@
       try {
         await set(ref(db, 'claves/admin'), nueva);
         document.getElementById('nueva-clave-admin').value = '';
-        document.getElementById('ok-admin').style.display = 'block';
+        document.getElementById('ok-admin').style.display  = 'block';
         setTimeout(() => document.getElementById('ok-admin').style.display = 'none', 3000);
       } catch { document.getElementById('err-admin').style.display = 'block'; }
     };
