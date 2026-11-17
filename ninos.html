@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zona de Niños — Mati Evolución</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background: #2e0d6e;
+      overflow-x: hidden;
+    }
+
+    .fondo {
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url('assets/fondo_menu.JPG');
+      background-size: cover;
+      background-position: center bottom;
+    }
+
+    .planeta-tl {
+      position: fixed;
+      top: clamp(8px, 1.5vh, 20px);
+      left: clamp(8px, 1.5vw, 20px);
+      width: clamp(240px, 26vw, 420px);
+      z-index: 2; height: auto;
+      animation: flotar 7s ease-in-out infinite;
+    }
+
+    .planeta-tr {
+      position: fixed;
+      top: clamp(14px, 2.5vh, 36px);
+      right: clamp(8px, 1.5vw, 20px);
+      width: clamp(200px, 21vw, 340px);
+      z-index: 2; height: auto;
+      animation: flotar 9s ease-in-out infinite reverse;
+    }
+
+    .cohete {
+      position: fixed;
+      top: clamp(60px, 10vh, 130px);
+      right: clamp(170px, 17vw, 280px);
+      width: clamp(100px, 9vw, 150px);
+      z-index: 2; height: auto;
+      animation: flotarCohete 4.5s ease-in-out infinite;
+    }
+
+    .mati-deco {
+      position: fixed;
+      bottom: clamp(20px, 3vh, 50px);
+      left: clamp(10px, 2.5vw, 40px);
+      height: clamp(300px, 48vh, 480px);
+      width: auto; z-index: 2;
+      filter: drop-shadow(2px 6px 10px rgba(0,0,0,0.35));
+      animation: flotar 5.5s ease-in-out infinite;
+    }
+
+    .pagina {
+      position: relative; z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(60px, 9vh, 100px) 20px clamp(40px, 6vh, 70px);
+      gap: 14px;
+    }
+
+    .logo {
+      width: clamp(160px, 22vw, 280px);
+      height: auto;
+      filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5));
+    }
+
+    .card {
+      background: rgba(38, 8, 85, 0.91);
+      border: 1px solid rgba(140, 100, 220, 0.4);
+      border-radius: 20px;
+      padding: 30px 30px 34px;
+      width: clamp(320px, 56vw, 560px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+      text-align: center;
+    }
+
+    .card-titulo {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      color: #f8d64e;
+      margin-bottom: 3px;
+    }
+    .card-sub {
+      color: #c4b5fd;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      color: #a78bfa;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .input-wrap { position: relative; margin-bottom: 16px; }
+    .input-icon {
+      position: absolute; left: 13px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem; pointer-events: none; opacity: 0.6;
+    }
+    input {
+      width: 100%;
+      padding: 12px 12px 12px 38px;
+      border-radius: 12px;
+      border: 1px solid rgba(140,100,220,0.4);
+      background: rgba(60, 20, 120, 0.4);
+      color: #fff;
+      font-size: 0.9rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    input::placeholder { color: rgba(255,255,255,0.3); font-weight: 400; }
+    input:focus { border-color: rgba(167,139,250,0.7); background: rgba(80,30,150,0.45); }
+
+    .btn-entrar {
+      width: 100%; padding: 13px;
+      border-radius: 12px; border: none;
+      background: linear-gradient(to bottom, #fcd34d, #f59e0b);
+      color: #78350f; font-size: 1.05rem;
+      font-family: 'Fredoka One', cursive;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #b45309;
+      transition: transform 0.1s, box-shadow 0.1s;
+      margin-top: 18px;
+    }
+    .btn-entrar:hover  { transform: translateY(-1px); box-shadow: 0 5px 0 #b45309; }
+    .btn-entrar:active { transform: translateY(2px);  box-shadow: 0 1px 0 #b45309; }
+
+    .btn-jugar {
+      display: block; width: 100%; padding: 13px;
+      border-radius: 12px; border: none;
+      background: linear-gradient(to bottom, #34d399, #059669);
+      color: #fff; font-size: 1.1rem;
+      font-family: 'Fredoka One', cursive;
+      cursor: pointer; box-shadow: 0 4px 0 #065f46;
+      text-decoration: none; text-align: center;
+      transition: transform 0.1s, box-shadow 0.1s;
+      margin-top: 10px;
+    }
+    .btn-jugar:hover  { transform: translateY(-1px); box-shadow: 0 5px 0 #065f46; }
+    .btn-jugar:active { transform: translateY(2px);  box-shadow: 0 1px 0 #065f46; }
+
+    .nota-acceso {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.72rem;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px; color: rgba(255,255,255,0.4);
+      font-size: 0.7rem; padding: 4px 10px; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-logout:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.4); }
+
+    .error-box {
+      background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4);
+      border-radius: 10px; color: #fca5a5; font-size: 0.78rem;
+      padding: 7px 12px; margin-top: 10px; display: none; text-align: center;
+    }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .panel-titulo {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem; color: #f8d64e;
+      text-align: left;
+    }
+
+    .section-label {
+      color: #a78bfa; font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      text-align: left; margin-bottom: 8px;
+    }
+
+    .stat-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .stat-box {
+      flex: 1; background: rgba(60,20,110,0.4); border: 1px solid rgba(140,100,220,0.25);
+      border-radius: 10px; padding: 10px 6px; text-align: center;
+    }
+    .stat-num { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: #fde68a; }
+    .stat-lbl { font-size: 0.62rem; color: #a78bfa; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+
+    .empty-state { text-align: center; color: rgba(255,255,255,0.3); padding: 16px 0; font-size: 0.82rem; }
+
+    #panel-nino  { display: none; }
+    #panel-login { display: block; }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes flotarCohete {
+      0%, 100% { transform: translateY(0) rotate(-18deg); }
+      50%       { transform: translateY(-8px) rotate(-18deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fondo"></div>
+  <img src="assets/Planeta_2.png"       class="planeta-tl" alt="">
+  <img src="assets/planeta_morado.png"  class="planeta-tr" alt="">
+  <img src="assets/cohete_vertical.PNG" class="cohete"     alt="">
+  <img src="assets/mati_quieto.PNG"     class="mati-deco"  alt="">
+
+  <div class="pagina">
+    <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
+
+    <div class="card">
+
+      <!-- PANEL LOGIN -->
+      <div id="panel-login">
+        <div class="card-titulo">Zona de Niños</div>
+        <div class="card-sub">Inicia sesión con tu usuario</div>
+        <label>Usuario</label>
+        <div class="input-wrap">
+          <span class="input-icon">▸</span>
+          <input type="text" id="input-usuario" placeholder="Nombre de usuario" autocomplete="off" autocapitalize="none">
+        </div>
+        <label>Contraseña</label>
+        <div class="input-wrap">
+          <span class="input-icon">▸</span>
+          <input type="password" id="input-pass" placeholder="Contraseña" autocomplete="off">
+        </div>
+        <button class="btn-entrar" onclick="loginNino()">¡A jugar!</button>
+        <div class="error-box" id="msg-login">Usuario o contraseña incorrectos.</div>
+        <div class="nota-acceso">Solo para alumnos registrados por la maestra</div>
+      </div>
+
+      <!-- PANEL NIÑO -->
+      <div id="panel-nino">
+        <div class="panel-header">
+          <div class="panel-titulo" id="saludo-nino">¡Hola!</div>
+          <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+        </div>
+
+        <div class="section-label">Tu progreso</div>
+        <div class="stat-row" id="stat-row">
+          <div class="empty-state" style="width:100%">Cargando...</div>
+        </div>
+
+        <div class="section-label">¡Listo para jugar!</div>
+        <a href="index.html" class="btn-jugar">🚀 Jugar Mati Evolución</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDZmreqSAs9ZqDfZk8jyPk-zu34Uz_mn3E",
+      authDomain: "mati-evolucion.firebaseapp.com",
+      databaseURL: "https://mati-evolucion-default-rtdb.firebaseio.com",
+      projectId: "mati-evolucion",
+      storageBucket: "mati-evolucion.firebasestorage.app",
+      messagingSenderId: "480449181652",
+      appId: "1:480449181652:web:e256a47a295d4e44d20841"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getDatabase(app);
+
+    function sanitizeKey(s){ return s.toLowerCase().replace(/[.#$[\]/]/g,'_'); }
+
+    window.loginNino = async function() {
+      const user  = document.getElementById('input-usuario').value.trim().toLowerCase();
+      const pass  = document.getElementById('input-pass').value.trim();
+      document.getElementById('msg-login').style.display = 'none';
+      if (!user || !pass) return;
+      try {
+        const key  = sanitizeKey(user);
+        const snap = await get(ref(db, `usuarios/${key}`));
+        if (!snap.exists() || snap.val().clave !== pass) {
+          document.getElementById('msg-login').style.display = 'block';
+          return;
+        }
+        mostrarPanel(snap.val().nombre, key);
+      } catch(e) {
+        document.getElementById('msg-login').textContent = 'Error de conexión: ' + e.message;
+        document.getElementById('msg-login').style.display = 'block';
+      }
+    };
+
+    async function mostrarPanel(nombre, key) {
+      document.getElementById('panel-login').style.display = 'none';
+      document.getElementById('panel-nino').style.display  = 'block';
+      document.getElementById('saludo-nino').textContent   = `¡Hola, ${nombre}!`;
+
+      const statRow = document.getElementById('stat-row');
+      try {
+        const snap = await get(ref(db, 'jugadores'));
+        let prog = null;
+        if (snap.exists()) {
+          const all = snap.val();
+          prog = all[nombre] || all[key] || null;
+          if (!prog) {
+            for (const [k,v] of Object.entries(all)) {
+              if (k.toLowerCase() === nombre.toLowerCase() || k.toLowerCase() === key) { prog = v; break; }
+            }
+          }
+        }
+        if (!prog) {
+          statRow.innerHTML = '<div class="empty-state" style="width:100%">Aún no has jugado. ¡Empieza ahora!</div>';
+          return;
+        }
+        statRow.innerHTML = `
+          <div class="stat-box"><div class="stat-num">★ ${prog.monedas??0}</div><div class="stat-lbl">Monedas</div></div>
+          <div class="stat-box"><div class="stat-num">🌍 ${prog.mundo_actual??1}</div><div class="stat-lbl">Mundo</div></div>
+          <div class="stat-box"><div class="stat-num">${prog.seccion_actual??1}</div><div class="stat-lbl">Sección</div></div>`;
+      } catch {
+        statRow.innerHTML = '<div class="empty-state" style="width:100%">No se pudo cargar el progreso.</div>';
+      }
+    }
+
+    window.logout = function() {
+      document.getElementById('panel-nino').style.display  = 'none';
+      document.getElementById('panel-login').style.display = 'block';
+      document.getElementById('input-usuario').value = '';
+      document.getElementById('input-pass').value    = '';
+      document.getElementById('msg-login').style.display = 'none';
+    };
+
+    document.getElementById('input-pass').addEventListener('keydown', e => { if (e.key==='Enter') window.loginNino(); });
+    document.getElementById('input-usuario').addEventListener('keydown', e => { if (e.key==='Enter') document.getElementById('input-pass').focus(); });
+  </script>
+</body>
+</html>

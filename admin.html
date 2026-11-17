@@ -16,7 +16,6 @@
       overflow-x: hidden;
     }
 
-    /* Fondo original del juego, sin filtros */
     .fondo {
       position: fixed; inset: 0; z-index: 0;
       background-image: url('assets/fondo_menu.JPG');
@@ -24,7 +23,6 @@
       background-position: center bottom;
     }
 
-    /* Planeta azul — esquina superior izquierda */
     .planeta-tl {
       position: fixed;
       top: clamp(8px, 1.5vh, 20px);
@@ -34,7 +32,6 @@
       animation: flotar 7s ease-in-out infinite;
     }
 
-    /* Planeta morado — esquina superior derecha, ligeramente desplazado */
     .planeta-tr {
       position: fixed;
       top: clamp(14px, 2.5vh, 36px);
@@ -44,7 +41,6 @@
       animation: flotar 9s ease-in-out infinite reverse;
     }
 
-    /* Cohete — lateral superior derecho, asimétrico */
     .cohete {
       position: fixed;
       top: clamp(60px, 10vh, 130px);
@@ -54,7 +50,6 @@
       animation: flotarCohete 4.5s ease-in-out infinite;
     }
 
-    /* Mati — inferior izquierda, grande */
     .mati-deco {
       position: fixed;
       bottom: clamp(20px, 3vh, 50px);
@@ -65,7 +60,6 @@
       animation: flotar 5.5s ease-in-out infinite;
     }
 
-    /* Contenido centrado */
     .pagina {
       position: relative; z-index: 10;
       min-height: 100vh;
@@ -77,20 +71,18 @@
       gap: 14px;
     }
 
-    /* Logo oficial */
     .logo {
       width: clamp(160px, 22vw, 280px);
       height: auto;
       filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5));
     }
 
-    /* Tarjeta principal — sólida, integrada al universo del juego */
     .card {
       background: rgba(38, 8, 85, 0.91);
       border: 1px solid rgba(140, 100, 220, 0.4);
       border-radius: 20px;
       padding: 30px 30px 34px;
-      width: clamp(320px, 56vw, 680px);
+      width: clamp(320px, 56vw, 700px);
       box-shadow: 0 8px 32px rgba(0,0,0,0.45);
       text-align: center;
     }
@@ -108,7 +100,6 @@
       margin-bottom: 22px;
     }
 
-    /* Etiquetas de campo */
     label {
       display: block;
       color: #a78bfa;
@@ -142,7 +133,6 @@
     input::placeholder { color: rgba(255,255,255,0.3); font-weight: 400; }
     input:focus { border-color: rgba(167,139,250,0.7); background: rgba(80,30,150,0.45); }
 
-    /* Botón principal — amarillo/naranja limpio */
     .btn-entrar {
       width: 100%; padding: 13px;
       border-radius: 12px; border: none;
@@ -164,7 +154,6 @@
       font-weight: 600;
     }
 
-    /* Botones secundarios */
     .btn-verde {
       width: 100%; padding: 11px; border-radius: 12px; border: none;
       background: linear-gradient(to bottom, #34d399, #059669);
@@ -196,7 +185,6 @@
     }
     .btn-logout:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.4); }
 
-    /* Mensajes */
     .error-box {
       background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4);
       border-radius: 10px; color: #fca5a5; font-size: 0.78rem;
@@ -238,14 +226,13 @@
     #panel-admin { display: none; }
     #panel-login { display: block; }
 
-    /* ── Tabs ── */
     .tabs {
-      display: flex; gap: 6px; margin-bottom: 16px;
+      display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap;
     }
     .tab-btn {
       flex: 1; padding: 8px 4px; border-radius: 10px; border: 1px solid rgba(140,100,220,0.3);
       background: rgba(60,20,110,0.3); color: #a78bfa;
-      font-family: 'Fredoka One', cursive; font-size: 0.85rem;
+      font-family: 'Fredoka One', cursive; font-size: 0.82rem;
       cursor: pointer; transition: background 0.2s, color 0.2s;
     }
     .tab-btn.active {
@@ -255,7 +242,6 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ── Tabla de alumnos ── */
     .alumnos-header {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 10px;
@@ -269,9 +255,7 @@
     .btn-refresh:hover { background: rgba(100,40,180,0.5); }
 
     .tabla-wrap { overflow-x: auto; }
-    table {
-      width: 100%; border-collapse: collapse; font-size: 0.78rem;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
     th {
       background: rgba(60,20,110,0.6); color: #a78bfa;
       padding: 7px 8px; text-align: left; font-weight: 700;
@@ -280,7 +264,6 @@
     }
     td {
       padding: 7px 8px; color: #e2d9f3; border-bottom: 1px solid rgba(255,255,255,0.06);
-      white-space: nowrap;
     }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: rgba(100,40,200,0.15); }
@@ -290,29 +273,42 @@
       font-size: 0.68rem; font-weight: 700;
     }
     .badge-ok  { background: rgba(52,211,153,0.2); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.3); }
-    .badge-par { background: rgba(251,191,36,0.2);  color: #fde68a; border: 1px solid rgba(251,191,36,0.3);  }
+    .badge-par { background: rgba(251,191,36,0.2);  color: #fde68a; border: 1px solid rgba(251,191,36,0.3); }
     .badge-no  { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.1); }
 
     .monedas-cell { color: #fde68a; font-weight: 700; }
     .nombre-cell  { color: #fff; font-weight: 700; }
 
-    .empty-state {
-      text-align: center; color: rgba(255,255,255,0.3);
-      padding: 24px 0; font-size: 0.82rem;
-    }
-    .loading-state {
-      text-align: center; color: #a78bfa;
-      padding: 20px 0; font-size: 0.82rem;
-    }
-    .stat-row {
-      display: flex; gap: 8px; margin-bottom: 14px;
-    }
+    .empty-state   { text-align: center; color: rgba(255,255,255,0.3); padding: 24px 0; font-size: 0.82rem; }
+    .loading-state { text-align: center; color: #a78bfa; padding: 20px 0; font-size: 0.82rem; }
+
+    .stat-row { display: flex; gap: 8px; margin-bottom: 14px; }
     .stat-box {
       flex: 1; background: rgba(60,20,110,0.4); border: 1px solid rgba(140,100,220,0.25);
       border-radius: 10px; padding: 8px; text-align: center;
     }
     .stat-num { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: #fde68a; }
     .stat-lbl { font-size: 0.65rem; color: #a78bfa; font-weight: 700; text-transform: uppercase; }
+
+    /* ── Usuarios tab ── */
+    .form-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 10px; }
+    .form-row .field-g { flex: 1; min-width: 110px; }
+    .form-row .field-g label { margin-bottom: 4px; }
+    .form-row input { padding: 10px 10px 10px 10px; }
+    .btn-crear {
+      padding: 10px 16px; border-radius: 10px; border: none;
+      background: linear-gradient(to bottom, #34d399, #059669);
+      color: #fff; font-family: 'Fredoka One', cursive; font-size: 0.85rem;
+      cursor: pointer; box-shadow: 0 3px 0 #065f46; white-space: nowrap;
+      transition: transform .1s;
+    }
+    .btn-crear:hover { transform: translateY(-1px); }
+    .btn-eliminar {
+      background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.4);
+      border-radius: 6px; color: #fca5a5; font-size: 0.72rem;
+      padding: 3px 8px; cursor: pointer; font-family: 'Nunito', sans-serif;
+    }
+    .btn-eliminar:hover { background: rgba(239,68,68,0.35); }
 
     .back {
       position: fixed; bottom: 10px; left: 14px; z-index: 20;
@@ -335,14 +331,12 @@
 <body>
 
   <div class="fondo"></div>
-
   <img src="assets/Planeta_2.png"       class="planeta-tl" alt="">
   <img src="assets/planeta_morado.png"  class="planeta-tr" alt="">
   <img src="assets/cohete_vertical.PNG" class="cohete"     alt="">
   <img src="assets/mati_quieto.PNG"     class="mati-deco"  alt="">
 
   <div class="pagina">
-
     <img src="assets/titulo_oficial.png" class="logo" alt="Mati Evolución">
 
     <div class="card">
@@ -351,19 +345,16 @@
       <div id="panel-login">
         <div class="card-titulo">Zona de maestros</div>
         <div class="card-sub">Acceso exclusivo para docentes</div>
-
         <label>Usuario</label>
         <div class="input-wrap">
           <span class="input-icon">▸</span>
           <input type="text" id="input-usuario" placeholder="Nombre de usuario" autocomplete="off">
         </div>
-
         <label>Contraseña</label>
         <div class="input-wrap">
           <span class="input-icon">▸</span>
           <input type="password" id="input-admin" placeholder="Contraseña" autocomplete="off">
         </div>
-
         <button class="btn-entrar" onclick="loginAdmin()">Entrar al panel</button>
         <div class="error-box" id="msg-login">Datos incorrectos. Intenta de nuevo.</div>
         <div class="nota-acceso">Solo para el/la maestra responsable del grupo</div>
@@ -376,17 +367,16 @@
           <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
         </div>
 
-        <!-- TABS -->
         <div class="tabs">
-          <button class="tab-btn active" onclick="switchTab('config')"  id="tab-config">⚙ Configuración</button>
-          <button class="tab-btn"        onclick="switchTab('alumnos')" id="tab-alumnos">👥 Mis alumnos</button>
+          <button class="tab-btn active" onclick="switchTab('config')"   id="tab-config">⚙ Config</button>
+          <button class="tab-btn"        onclick="switchTab('alumnos')"  id="tab-alumnos">👥 Alumnos</button>
+          <button class="tab-btn"        onclick="switchTab('usuarios')" id="tab-usuarios">👤 Accesos</button>
         </div>
 
         <!-- TAB: CONFIGURACIÓN -->
         <div class="tab-panel active" id="tp-config">
           <div class="section-label">Clave activa de los niños</div>
           <div class="badge-clave">Clave: <strong id="clave-actual">cargando...</strong></div>
-
           <div class="section-label">Nueva clave para los niños</div>
           <div class="input-wrap">
             <span class="input-icon">▸</span>
@@ -395,9 +385,7 @@
           <button class="btn-verde" onclick="cambiarClaveNinos()">Guardar nueva clave</button>
           <div class="ok-box"    id="ok-ninos">¡Clave de niños actualizada!</div>
           <div class="error-box" id="err-ninos">Error al actualizar.</div>
-
           <div class="divider"></div>
-
           <div class="section-label">Cambiar contraseña de administrador</div>
           <div class="input-wrap">
             <span class="input-icon">▸</span>
@@ -414,57 +402,53 @@
             <div class="section-label" style="margin:0">Progreso del grupo</div>
             <button class="btn-refresh" onclick="cargarAlumnos()">↻ Actualizar</button>
           </div>
-
-          <!-- Estadísticas rápidas -->
           <div class="stat-row">
-            <div class="stat-box">
-              <div class="stat-num" id="stat-total">—</div>
-              <div class="stat-lbl">Alumnos</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-num" id="stat-m1">—</div>
-              <div class="stat-lbl">Mundo 1 ✓</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-num" id="stat-m2">—</div>
-              <div class="stat-lbl">Mundo 2 ✓</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-num" id="stat-m3">—</div>
-              <div class="stat-lbl">Mundo 3 ✓</div>
-            </div>
+            <div class="stat-box"><div class="stat-num" id="stat-total">—</div><div class="stat-lbl">Alumnos</div></div>
+            <div class="stat-box"><div class="stat-num" id="stat-m1">—</div><div class="stat-lbl">Mundo 1 ✓</div></div>
+            <div class="stat-box"><div class="stat-num" id="stat-m2">—</div><div class="stat-lbl">Mundo 2 ✓</div></div>
+            <div class="stat-box"><div class="stat-num" id="stat-m3">—</div><div class="stat-lbl">Mundo 3 ✓</div></div>
           </div>
-
           <div class="tabla-wrap">
             <table id="tabla-alumnos">
-              <thead>
-                <tr>
-                  <th>Alumno</th>
-                  <th>Monedas</th>
-                  <th>Mundo 1</th>
-                  <th>Mundo 2</th>
-                  <th>Mundo 3</th>
-                  <th>Último acceso</th>
-                </tr>
-              </thead>
-              <tbody id="tbody-alumnos">
-                <tr><td colspan="6" class="loading-state">Cargando alumnos...</td></tr>
-              </tbody>
+              <thead><tr><th>Alumno</th><th>Monedas</th><th>Mundo 1</th><th>Mundo 2</th><th>Mundo 3</th></tr></thead>
+              <tbody id="tbody-alumnos"><tr><td colspan="5" class="loading-state">Cargando alumnos...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB: USUARIOS (accesos individuales) -->
+        <div class="tab-panel" id="tp-usuarios">
+          <div class="section-label">Crear acceso individual</div>
+          <div class="form-row">
+            <div class="field-g"><label>Nombre</label><div class="input-wrap"><span class="input-icon">▸</span><input type="text" id="nu-nombre" placeholder="Nombre del alumno"></div></div>
+            <div class="field-g"><label>Usuario</label><div class="input-wrap"><span class="input-icon">▸</span><input type="text" id="nu-user" placeholder="usuario" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9_]/g,'')"></div></div>
+            <div class="field-g"><label>Contraseña</label><div class="input-wrap"><span class="input-icon">▸</span><input type="text" id="nu-pass" placeholder="clave"></div></div>
+            <button class="btn-crear" onclick="crearUsuario()">+ Crear</button>
+          </div>
+          <div class="ok-box"    id="ok-crear">¡Acceso creado!</div>
+          <div class="error-box" id="err-crear">Error al crear.</div>
+          <div class="divider"></div>
+          <div class="alumnos-header">
+            <div class="section-label" style="margin:0">Accesos creados</div>
+            <button class="btn-refresh" onclick="cargarUsuarios()">↻</button>
+          </div>
+          <div class="tabla-wrap">
+            <table>
+              <thead><tr><th>Nombre</th><th>Usuario</th><th>Contraseña</th><th></th></tr></thead>
+              <tbody id="tbody-usuarios"><tr><td colspan="4" class="loading-state">Cargando...</td></tr></tbody>
             </table>
           </div>
         </div>
 
       </div>
-
-    </div><!-- /card -->
-
-  </div><!-- /pagina -->
+    </div>
+  </div>
 
   <a href="index.html" class="back">← Volver al inicio</a>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { getDatabase, ref, get, set, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDZmreqSAs9ZqDfZk8jyPk-zu34Uz_mn3E",
@@ -480,67 +464,82 @@
     const db  = getDatabase(app);
     const USUARIO_FIJO = "profe";
 
-    // ── Tabs ──────────────────────────────────────────────────
     window.switchTab = function(tab) {
-      ['config','alumnos'].forEach(t => {
+      ['config','alumnos','usuarios'].forEach(t => {
         document.getElementById('tp-' + t).classList.toggle('active', t === tab);
         document.getElementById('tab-' + t).classList.toggle('active', t === tab);
       });
-      if (tab === 'alumnos') cargarAlumnos();
+      if (tab === 'alumnos')  cargarAlumnos();
+      if (tab === 'usuarios') cargarUsuarios();
     };
 
-    // ── Helpers de tiempo ─────────────────────────────────────
-    function tiempoRelativo(ts) {
-      if (!ts) return '—';
-      const diff = Math.floor(Date.now() / 1000) - ts;
-      if (diff < 60)   return 'hace un momento';
-      if (diff < 3600) return `hace ${Math.floor(diff/60)} min`;
-      if (diff < 86400)return `hace ${Math.floor(diff/3600)} h`;
-      return `hace ${Math.floor(diff/86400)} días`;
-    }
-
     function mundoBadge(secciones, completado, max) {
-      if (completado || secciones >= max) return `<span class="mundo-badge badge-ok">✓ Completo</span>`;
-      if (secciones > 0) return `<span class="mundo-badge badge-par">${secciones}/${max} sec.</span>`;
-      return `<span class="mundo-badge badge-no">Sin iniciar</span>`;
+      if (completado || secciones >= max) return `<span class="mundo-badge badge-ok">✓ Listo</span>`;
+      if (secciones > 0) return `<span class="mundo-badge badge-par">${secciones}/${max}</span>`;
+      return `<span class="mundo-badge badge-no">—</span>`;
     }
 
-    // ── Cargar alumnos desde Firebase ─────────────────────────
     window.cargarAlumnos = async function() {
       const tbody = document.getElementById('tbody-alumnos');
-      tbody.innerHTML = '<tr><td colspan="6" class="loading-state">Cargando...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="loading-state">Cargando...</td></tr>';
       try {
         const snap = await get(ref(db, 'jugadores'));
-        if (!snap.exists()) {
-          tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Ningún alumno ha jugado todavía.</td></tr>';
-          ['stat-total','stat-m1','stat-m2','stat-m3'].forEach(id => document.getElementById(id).textContent = '0');
-          return;
-        }
-        const jugadores = snap.val();
-        const lista = Object.values(jugadores).sort((a,b) => (b.ultimo_acceso||0) - (a.ultimo_acceso||0));
-
-        // Estadísticas
-        const totalM1 = lista.filter(j => j.mundo1_completado || j.mundo1_secciones >= 5).length;
-        const totalM2 = lista.filter(j => (j.mundo2_secciones||0) >= 5).length;
-        const totalM3 = lista.filter(j => (j.mundo3_secciones||0) >= 7).length;
+        if (!snap.exists()) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Sin alumnos aún.</td></tr>'; return; }
+        const lista = Object.values(snap.val()).sort((a,b) => (b.ultimo_acceso||0) - (a.ultimo_acceso||0));
         document.getElementById('stat-total').textContent = lista.length;
-        document.getElementById('stat-m1').textContent    = totalM1;
-        document.getElementById('stat-m2').textContent    = totalM2;
-        document.getElementById('stat-m3').textContent    = totalM3;
-
+        document.getElementById('stat-m1').textContent    = lista.filter(j => j.mundo1_completado || (j.mundo1_secciones||0) >= 5).length;
+        document.getElementById('stat-m2').textContent    = lista.filter(j => (j.mundo2_secciones||0) >= 5).length;
+        document.getElementById('stat-m3').textContent    = lista.filter(j => (j.mundo3_secciones||0) >= 7).length;
         tbody.innerHTML = lista.map(j => `
           <tr>
-            <td class="nombre-cell">${j.nombre || '—'}</td>
-            <td class="monedas-cell">★ ${j.monedas || 0}</td>
+            <td class="nombre-cell">${j.nombre||'—'}</td>
+            <td class="monedas-cell">★ ${j.monedas||0}</td>
             <td>${mundoBadge(j.mundo1_secciones||0, j.mundo1_completado, 5)}</td>
             <td>${mundoBadge(j.mundo2_secciones||0, false, 5)}</td>
             <td>${mundoBadge(j.mundo3_secciones||0, false, 7)}</td>
-            <td style="color:rgba(255,255,255,0.45)">${tiempoRelativo(j.ultimo_acceso)}</td>
-          </tr>
-        `).join('');
-      } catch(e) {
-        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Error al cargar datos.</td></tr>';
-      }
+          </tr>`).join('');
+      } catch(e) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Error al cargar.</td></tr>'; }
+    };
+
+    function sanitizeKey(s){ return s.toLowerCase().replace(/[.#$[\]/]/g,'_'); }
+
+    window.cargarUsuarios = function() {
+      const tbody = document.getElementById('tbody-usuarios');
+      onValue(ref(db, 'usuarios'), snap => {
+        if (!snap.exists()) { tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Sin accesos creados.</td></tr>'; return; }
+        tbody.innerHTML = Object.entries(snap.val()).map(([key, d]) => `
+          <tr>
+            <td class="nombre-cell">${d.nombre}</td>
+            <td style="font-family:monospace">${key}</td>
+            <td style="font-family:monospace">${d.clave}</td>
+            <td><button class="btn-eliminar" onclick="eliminarUsuario('${key}','${d.nombre}')">Eliminar</button></td>
+          </tr>`).join('');
+      }, { onlyOnce: false });
+    };
+
+    window.crearUsuario = async function() {
+      const nombre = document.getElementById('nu-nombre').value.trim();
+      const user   = document.getElementById('nu-user').value.trim();
+      const pass   = document.getElementById('nu-pass').value.trim();
+      document.getElementById('ok-crear').style.display = 'none';
+      document.getElementById('err-crear').style.display = 'none';
+      if (!nombre || !user || !pass) { document.getElementById('err-crear').textContent = 'Completa todos los campos.'; document.getElementById('err-crear').style.display = 'block'; return; }
+      const key = sanitizeKey(user);
+      try {
+        const existe = await get(ref(db, `usuarios/${key}`));
+        if (existe.exists()) { document.getElementById('err-crear').textContent = `Ya existe el usuario "${user}".`; document.getElementById('err-crear').style.display = 'block'; return; }
+        await set(ref(db, `usuarios/${key}`), { nombre, clave: pass, activo: true, creado: Date.now() });
+        document.getElementById('ok-crear').textContent = `✓ Acceso creado para ${nombre}.`;
+        document.getElementById('ok-crear').style.display = 'block';
+        document.getElementById('nu-nombre').value = '';
+        document.getElementById('nu-user').value   = '';
+        document.getElementById('nu-pass').value   = '';
+      } catch(e) { document.getElementById('err-crear').textContent = 'Error: ' + e.message; document.getElementById('err-crear').style.display = 'block'; }
+    };
+
+    window.eliminarUsuario = async function(key, nombre) {
+      if (!confirm(`¿Eliminar el acceso de "${nombre}"?`)) return;
+      await remove(ref(db, `usuarios/${key}`));
     };
 
     window.loginAdmin = async function() {
@@ -579,8 +578,8 @@
       try {
         await set(ref(db, 'claves/ninos'), nueva);
         document.getElementById('clave-actual').textContent = nueva;
-        document.getElementById('nueva-clave-ninos').value  = '';
-        document.getElementById('ok-ninos').style.display   = 'block';
+        document.getElementById('nueva-clave-ninos').value = '';
+        document.getElementById('ok-ninos').style.display = 'block';
         setTimeout(() => document.getElementById('ok-ninos').style.display = 'none', 3000);
       } catch { document.getElementById('err-ninos').style.display = 'block'; }
     };
@@ -591,14 +590,12 @@
       try {
         await set(ref(db, 'claves/admin'), nueva);
         document.getElementById('nueva-clave-admin').value = '';
-        document.getElementById('ok-admin').style.display  = 'block';
+        document.getElementById('ok-admin').style.display = 'block';
         setTimeout(() => document.getElementById('ok-admin').style.display = 'none', 3000);
       } catch { document.getElementById('err-admin').style.display = 'block'; }
     };
 
-    document.getElementById('input-admin').addEventListener('keydown', e => {
-      if (e.key === 'Enter') window.loginAdmin();
-    });
+    document.getElementById('input-admin').addEventListener('keydown', e => { if (e.key === 'Enter') window.loginAdmin(); });
   </script>
 </body>
 </html>
